@@ -38,6 +38,7 @@ if [ "$gpu" != 'NVIDIA' ]; then
     echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep\"" >> /etc/default/grub
 else
     echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep nvidia-drm.modeset=1\"" >> /etc/default/grub
+fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
