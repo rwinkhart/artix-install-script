@@ -154,7 +154,7 @@ echo "$hostname" > /mnt/etc/hostname
 echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
 
 # installing base packages
-base_devel='db diffutils gc guile libisl libmpc perl autoconf automake binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed opendoas texinfo which'
+base_devel='db diffutils gc guile libisl libmpc perl autoconf automake binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf python sed opendoas texinfo which'
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git micro man-db
 
 # exporting variables
