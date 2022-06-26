@@ -28,9 +28,9 @@ read -rp "root password: " rootpassword
 
 read -rp "hostname: " hostname
 
-echo -e '\nAmerica:'&&ls /usr/share/zoneinfo/America
+echo -e '\namerica:'&&ls /usr/share/zoneinfo/America
 echo -e 'e.g. "New_York" or "Aruba"\n'
-read -r -p "Timezone: " timezone
+read -r -p "timezone: " timezone
 # stop questions
 
 # start hardware detection
