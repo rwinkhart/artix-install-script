@@ -151,7 +151,7 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 echo "$hostname" > /mnt/etc/hostname
 
 # installing base packages
-base_devel='autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff pigz pbzip2 libtool m4 make pacman patch pkgconf sed opendoas texinfo which'
+base_devel='db diffutils gc guile libisl libmpc perl autoconf automake binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed opendoas texinfo which'
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware
 
 # exporting variables
