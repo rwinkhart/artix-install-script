@@ -103,7 +103,7 @@ chmod -R 700 /home
 
 # installing desktop environment and addons + utilities
 if [ "$formfactor" -lt 4 ]; then
-    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa plasma-desktop lightdm-openrc lightdm-gtk-greeter kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez --needed --noconfirm
+    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa libpulse plasma-desktop lightdm-openrc lightdm-gtk-greeter kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez --needed --noconfirm
     rc-update add lightdm
     ln -s /usr/bin/micro /usr/bin/nano
 fi

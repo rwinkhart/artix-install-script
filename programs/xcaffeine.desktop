@@ -1,0 +1,7 @@
+[Desktop Entry]
+    Exec=/usr/bin/xcaffeine.py
+    Icon=
+    Name=xcaffeine
+    Path=
+    Terminal=False
+    Type=Application
