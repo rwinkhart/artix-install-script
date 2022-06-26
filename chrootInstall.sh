@@ -19,7 +19,7 @@ locale-gen
 hwclock --systohc --utc
 
 # networkmanager configuration 
-pacman -S networkmanager-openrc
+pacman -S networkmanager-openrc --noconfirm
 rc-update add NetworkManager
 
 # makepkg configuration - temporarily disabled
