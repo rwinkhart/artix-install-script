@@ -169,6 +169,6 @@ echo "$userpassword" > /mnt/tempfiles/userpassword
 echo "$rootpassword" > /mnt/tempfiles/rootpassword
 
 # download and initiate part 2
-curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/universal/secondInstall.sh -o /mnt/chrootInstall.sh
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh
 chmod +x /mnt/chrootInstall.sh
 artix-chroot /mnt ./chrootInstall.sh

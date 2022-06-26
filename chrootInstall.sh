@@ -23,7 +23,7 @@ pacman -S networkmanager-openrc
 rc-update add NetworkManager
 
 # makepkg configuration
-curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/makepkg.conf -o /etc/makepkg.conf
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
 
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
@@ -35,9 +35,9 @@ if [ "$boot" == 2 ]; then
 fi
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 if [ "$gpu" != 'NVIDIA' ]; then
-    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub -o /etc/default/grub
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/grub -o /etc/default/grub
 else
-    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/grub-nvidia -o /etc/default/grub
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -56,9 +56,9 @@ echo "permit persist keepenv $username as root" > /etc/doas.conf
 ln -s /usr/bin/doas /usr/bin/sudo
 
 # pacman configuration
-curl https://raw.githubusercontent.com/rwinkhart/arch-install-script/main/config-files/universal/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
 if [ "$gpu" == 'NVIDIA' ]; then
-    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
 fi
 
 # installing hardware-specific packages
