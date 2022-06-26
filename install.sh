@@ -1,7 +1,7 @@
 #!/bin/bash
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
-echo rwinkhart\'s artix installer
+echo rwinkhart\'s artix install script
 echo last updated june 26, 2022
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
@@ -35,6 +35,7 @@ read -r -p "timezone: " timezone
 
 # start hardware detection
 cpu=$(lscpu | grep 'Vendor ID:' | awk 'FNR == 1 {print $3;}')
+threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
 ram=$(echo "$(cat /proc/meminfo | grep 'MemTotal:' | awk '{print $2;}') / 1000000" | bc)
 # stop hardware detection
@@ -172,6 +173,7 @@ mkdir /mnt/tempfiles
 echo "$formfactor" > /mnt/tempfiles/formfactor
 echo "$device" > /mnt/tempfiles/device
 echo "$cpu" > /mnt/tempfiles/cpu
+echo "$threadsminusone" > /mnt/tempfiles/threadsminusone
 echo "$gpu" > /mnt/tempfiles/gpu
 echo "$intel_vaapi_driver" > /mnt/tempfiles/intel_vaapi_driver
 echo "$boot" > /mnt/tempfiles/boot
