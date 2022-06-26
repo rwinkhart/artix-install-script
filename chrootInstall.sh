@@ -53,7 +53,7 @@ echo "permit persist keepenv $username as root" > /etc/doas.conf
 ln -s /usr/bin/doas /usr/bin/sudo
 
 # misc. configuration
-#curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/bashrc -o /home/"$username"/.bashrc
 chown "$username":"$users" /home/"$username"/.bashrc
 
