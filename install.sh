@@ -32,6 +32,7 @@ read -r -p "hostname: " hostname
 # start hardware detection
 cpu=$(lscpu | grep 'Vendor ID:' | awk 'FNR == 1 {print $3;}')
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
+ram=$(echo "$(cat /proc/meminfo | grep 'MemTotal:' | awk '{print $2;}') / 1000000" | bc)
 # stop hardware detection
 
 # start conditional questions
@@ -145,6 +146,7 @@ if [ "$swap" != 0 ]; then
 fi
 
 fstabgen -U /mnt >> /mnt/etc/fstab
+echo -e "\ntmpfs   /tmp         tmpfs   rw,nodev,nosuid,size="$(echo ".75 * $ram / 1" | bc)"G          0  0" >> /mnt/etc/fstab
 # stop partitioning
 
 # setting hostname
