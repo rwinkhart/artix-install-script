@@ -86,7 +86,7 @@ fi
 # disable kernel watchdog
 echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
-if [ "$formfactor" == 1 ]; then
+if [ "$formfactor" == 2 ]; then
     pacman -R xorg-xbacklight --noconfirm
     pacman -S powertop acpid-openrc acpilight --needed --noconfirm
     rc-update add acpid
@@ -100,13 +100,13 @@ fi
 chmod -R 700 /home
 
 # installing desktop environment and addons + utilities
-if [ "$formfactor" -lt 3 ] || [ "$formfactor" == 4 ]; then
+if [ "$formfactor" -lt 4 ]; then
     pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa plasma-desktop sddm-openrc sddm-kcm kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate bluedevil bluez --needed --noconfirm
     rc-update add sddm
 fi
 
 # installing and configuring basic software packages
-if [ "$formfactor" == 3 ]; then
+if [ "$formfactor" == 4 ]; then
     pacman -S openssh --needed --noconfirm
     mkdir /home/"$username"/.ssh
     touch /home/"$username"/.ssh/authorized_keys

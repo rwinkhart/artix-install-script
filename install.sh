@@ -10,7 +10,7 @@ read -n 1 -s -r -p 'Press any key to continue'
 
 # start questions
 echo Special Devices:
-echo -e '\nspecial devices:\n1. asus rog zephyrus g14 2020\ngeneric:\n2. laptop\n3. desktop\n4. server\n'
+echo -e '\nspecial devices:\n1. asus rog zephyrus g14 2020 (not yet supported)\ngeneric:\n2. laptop\n3. desktop\n4. server\n'
 read -n 1 -r -p "formfactor: " formfactor
 
 fdisk -l
@@ -152,9 +152,7 @@ echo "$hostname" > /mnt/etc/hostname
 
 # installing base packages
 base_devel='autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff pigz pbzip2 libtool m4 make pacman patch pkgconf sed opendoas texinfo which'
-if [ "$formfactor" -lt 3 ]; then
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware
-fi
 
 # exporting variables
 mkdir /mnt/tempfiles
