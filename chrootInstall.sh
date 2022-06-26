@@ -51,7 +51,15 @@ $userpassword
 " | passwd "$username"
 
 # opendoas configuration
-echo "permit persist keepenv $username as root" > /etc/doas.conf
+echo "permit persist keepenv $username as root
+permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g powersave
+permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g performance
+permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g schedutil
+permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g ondemand
+permit nopass $username as root cmd /usr/bin/poweroff
+permit nopass $username as root cmd /usr/bin/reboot
+" > /etc/doas.conf
+
 ln -s /usr/bin/doas /usr/bin/sudo
 
 # misc. configuration
