@@ -14,19 +14,19 @@ echo -e '\nspecial devices:\n1. asus rog zephyrus g14 2020 (not yet supported)\n
 read -n 1 -r -p "formfactor: " formfactor
 
 fdisk -l
-read -r -p "disk: " disk
+read -rp "disk: " disk
 
-read -r -p "swap (in GB): " swap
+read -rp "swap (in GB): " swap
 
-read -n 1 -r -p "clean install? (y/N) " wipe
+read -n 1 -rp "clean install? (y/N) " wipe
+echo
+read -rp "username: " username
 
-read -r -p "username: " username
+read -rp "$username password: " userpassword
 
-read -r -p "$username password: " userpassword
+read -rp "root password: " rootpassword
 
-read -r -p "root password: " rootpassword
-
-read -r -p "hostname: " hostname
+read -rp "hostname: " hostname
 # stop questions
 
 # start hardware detection
@@ -38,7 +38,7 @@ ram=$(echo "$(cat /proc/meminfo | grep 'MemTotal:' | awk '{print $2;}') / 100000
 # start conditional questions
 if [ "$gpu" == 'Intel' ]; then
     echo -e '1. libva-intel-driver (intel igpus up to coffee lake)\n2. intel-media-driver (intel igpus/dgpus newer than coffee lake)\n'
-    read -n 1 -r -p "va-api driver: " intel_vaapi_driver
+    read -n 1 -rp "va-api driver: " intel_vaapi_driver
 fi
 # stop conditional questions
 
