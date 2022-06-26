@@ -71,6 +71,7 @@ chown "$username":"$users" /home/"$username"/.bashrc
 
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/"$device"pacman.conf -o /etc/pacman.conf
+pacman -Sy
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paru.conf -o /etc/paru.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
 if [ "$gpu" == 'NVIDIA' ]; then
