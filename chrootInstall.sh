@@ -75,7 +75,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 if [ "$gpu" == 'NVIDIA' ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
 fi
-pacman -Sy yay --needed --noconfirm
+pacman -Sy yay --noconfirm
 
 # installing hardware-specific packages
 if [ "$cpu" == 'AuthenticAMD' ]; then
@@ -103,7 +103,6 @@ fi
 echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
 if [ "$formfactor" == 2 ]; then
-    pacman -R xorg-xbacklight --noconfirm
     pacman -S powertop acpid-openrc acpilight --needed --noconfirm
     rc-update add acpid
     echo 'SUBSYSTEM=="backlight", ACTION=="add", \
