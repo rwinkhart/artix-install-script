@@ -113,18 +113,19 @@ if [ "$formfactor" == 2 ]; then
     ' > /etc/udev/rules.d/screenbacklight.rules
 fi
 
-# setting home directory permissions
-chmod -R 700 /home
-
 # installing desktop environment and addons + utilities
 if [ "$formfactor" -lt 4 ]; then
     pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa libpulse plasma-desktop lightdm-openrc lightdm-gtk-greeter kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
     rc-update add lightdm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.py -o /usr/bin/xcaffeine.py
     chmod 755 /usr/bin/xcaffeine.py
+    mkdir -p /home/"$username"/.config/autostart/
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.desktop -o /home/"$username"/.config/autostart/xcaffeine.desktop
-    chmod 644 /home/"$username"/.config/autostart/xcaffeine.desktop
 fi
+
+# setting home directory permissions
+chmod -R 700 /home
+chown -R "$username":users /home/"$username"
 
 # installing and configuring basic software packages
 if [ "$formfactor" == 4 ]; then
