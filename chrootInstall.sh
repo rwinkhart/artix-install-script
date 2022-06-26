@@ -22,8 +22,8 @@ hwclock --systohc --utc
 pacman -S networkmanager-openrc
 rc-update add NetworkManager
 
-# makepkg configuration
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
+# makepkg configuration - temporarily disabled
+#curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
 
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
