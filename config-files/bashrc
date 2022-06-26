@@ -6,6 +6,7 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
+alias nano='micro'
 alias orphans='doas pacman -Rcns $(pacman -Qqdt)'
 alias powersave='doas cpupower frequency-set -g powersave; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias performance='doas cpupower frequency-set -g performance; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
