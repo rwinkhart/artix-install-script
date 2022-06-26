@@ -58,6 +58,12 @@ fi
 if [[ "$disk" == /dev/mmcblk* ]]; then
     disk="$disk"'p'
 fi
+
+if [ "$formfactor" == 1 ]; then
+    device='g14-'
+else
+    device=''
+fi
 # stop variable manipulation
 
 # determine if running as UEFI or BIOS
@@ -164,6 +170,7 @@ basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git m
 # exporting variables
 mkdir /mnt/tempfiles
 echo "$formfactor" > /mnt/tempfiles/formfactor
+echo "$device" > /mnt/tempfiles/device
 echo "$cpu" > /mnt/tempfiles/cpu
 echo "$gpu" > /mnt/tempfiles/gpu
 echo "$intel_vaapi_driver" > /mnt/tempfiles/intel_vaapi_driver
