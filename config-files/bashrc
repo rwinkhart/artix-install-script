@@ -6,6 +6,12 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
+alias orphans='doas pacman -Rcns $(pacman -Qqdt)'
+alias powersave='doas cpupower frequency-set -g powersave; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias performance='doas cpupower frequency-set -g performance; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias schedutil='doas cpupower frequency-set -g schedutil; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias ondemand='doas cpupower frequency-set -g ondemand; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+
 PS1='\033[1;36m\u@\h:\033[0m\W\033[1;36m|$\033[0m '
 
 export BUILDDIR=/tmp/makepkg
