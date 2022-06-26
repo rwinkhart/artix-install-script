@@ -103,7 +103,7 @@ if [ "$boot" == 1 ]; then
 
     # mounting storage and efi partitions
     mount "$disk""$((2 + "$partitions"))" /mnt
-    mkdir -p /mnt/{boot/EFI,etc}
+    mkdir -p /mnt/{boot/EFI,etc/conf.d}
     mount "$disk""$((1 + "$partitions"))" /mnt/boot/EFI
 else
     # mbr/bios partitioning
@@ -133,7 +133,7 @@ else
 
     # mounting storage (no efi partition, using dos label)
     mount "$disk""$((1 + "$partitions"))" /mnt
-    mkdir /mnt/etc
+    mkdir -p /mnt/etc/conf.d
 fi
 
 # create and mount swap file
@@ -149,6 +149,7 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 
 # setting hostname
 echo "$hostname" > /mnt/etc/hostname
+echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
 
 # installing base packages
 base_devel='db diffutils gc guile libisl libmpc perl autoconf automake binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed opendoas texinfo which'
