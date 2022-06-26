@@ -2,7 +2,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix installer
-echo last updated june 25, 2022
+echo last updated june 26, 2022
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
