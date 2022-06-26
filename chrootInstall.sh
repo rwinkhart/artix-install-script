@@ -22,9 +22,6 @@ hwclock --systohc --utc
 pacman -S networkmanager-openrc --noconfirm
 rc-update add NetworkManager
 
-# makepkg configuration - temporarily disabled
-#curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
-
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
 if [ "$boot" == 1 ]; then
@@ -54,6 +51,11 @@ $userpassword
 # opendoas configuration
 echo "permit persist keepenv $username as root" > /etc/doas.conf
 ln -s /usr/bin/doas /usr/bin/sudo
+
+# misc. configuration
+#curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/bashrc -o /home/"$username"/.bashrc
+chown "$username":"$users" /home/"$username"/.bashrc
 
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
