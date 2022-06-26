@@ -27,6 +27,10 @@ read -rp "$username password: " userpassword
 read -rp "root password: " rootpassword
 
 read -rp "hostname: " hostname
+
+echo -e '\nAmerica:'&&ls /usr/share/zoneinfo/America
+echo -e 'e.g. "New_York" or "Aruba"\n'
+read -r -p "Timezone: " timezone
 # stop questions
 
 # start hardware detection
@@ -168,6 +172,7 @@ echo "$disk0" > /mnt/tempfiles/disk
 echo "$username" > /mnt/tempfiles/username
 echo "$userpassword" > /mnt/tempfiles/userpassword
 echo "$rootpassword" > /mnt/tempfiles/rootpassword
+echo "$timezone" > /mnt/tempfiles/timezone
 
 # download and initiate part 2
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh

@@ -10,6 +10,7 @@ disk="$(cat /tempfiles/disk)"
 username="$(cat /tempfiles/username)"
 userpassword="$(cat /tempfiles/userpassword)"
 rootpassword="$(cat /tempfiles/rootpassword)"
+timezone="$(cat /tempfiles/timezone)"
 
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
