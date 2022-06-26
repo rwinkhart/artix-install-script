@@ -33,11 +33,11 @@ if [ "$boot" == 2 ]; then
     grub-install --target=i386-pc "$disk"
 fi
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/grub -o /etc/default/grub
 if [ "$gpu" != 'NVIDIA' ]; then
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/grub -o /etc/default/grub
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep\"" >> /etc/default/grub
 else
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/grub-nvidia -o /etc/default/grub
-fi
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep nvidia-drm.modeset=1\"" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
