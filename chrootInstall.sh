@@ -58,6 +58,8 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 chown "$username":"$users" /home/"$username"/.bashrc
 
 # pacman configuration
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paru.conf -o /etc/paru.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
 if [ "$gpu" == 'NVIDIA' ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
