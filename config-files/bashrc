@@ -16,6 +16,18 @@ alias reboot='doas /usr/bin/reboot'
 
 PS1='\[\e[36m\]\u\[\e[0m\]@\[\e[36m\]\h:\[\e[0m\]\W\[\e[36m\]|$\[\e[0m\] '
 
+# XDG EXPORT
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_STATE_HOME="$HOME"/.local/state
+export XDG_CACHE_HOME="$HOME"/.cache
+
+# DOTFILE MANAGEMENT
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+
 export BUILDDIR=/tmp/makepkg
 export HISTSIZE=10000
 export HISTFILESIZE=100000
