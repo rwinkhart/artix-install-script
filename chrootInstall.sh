@@ -123,23 +123,22 @@ if [ "$formfactor" -lt 4 ]; then
     chmod 755 /usr/bin/xcaffeine.py /usr/bin/pipewire-start.sh
 fi
 
-# setting home directory permissions
-chmod -R 700 /home
-chown -R "$username":users /home/"$username"
+# ssh configuration
+pacman -S openssh --needed --noconfirm
+mkdir /home/"$username"/.ssh
+touch /home/"$username"/.ssh/authorized_keys
+chown -R "$username" /home/"$username"/.ssh
 
-# installing and configuring basic software packages
-if [ "$formfactor" == 4 ]; then
-    pacman -S openssh --needed --noconfirm
-    mkdir /home/"$username"/.ssh
-    touch /home/"$username"/.ssh/authorized_keys
-    chmod 700 /home/"$username"/.ssh
-    chmod 600 /home/"$username"/.ssh/authorized_keys
-    chown -R "$username" /home/"$username"/.ssh
-fi
+# misc configuration
 echo -e '*        hard    memlock        64\n*        soft    memlock        2097152\n# End of file' > /etc/security/limits.conf  # increases hard memlock limit to 2 GiB (useful for some apps, such as rpcs3)
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 pacman -S neofetch htop cpupower --needed --noconfirm
+
+# setting home directory permissions
+chmod -R 700 /home
+chown -R "$username":users /home/"$username"
+chmod 600 /home/"$username"/.ssh/authorized_keys
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
