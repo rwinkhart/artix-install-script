@@ -1,0 +1,7 @@
+[Desktop Entry]
+    Exec=/usr/bin/pipewire-start.sh
+    Icon=
+    Name=pipewire-starter
+    Path=
+    Terminal=False
+    Type=Application
