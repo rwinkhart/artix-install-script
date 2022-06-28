@@ -15,7 +15,7 @@ alias ondemand='doas /usr/bin/cpupower frequency-set -g ondemand; cat /sys/devic
 alias poweroff='doas /usr/bin/poweroff'
 alias reboot='doas /usr/bin/reboot'
 
-PS1='\033[1;36m\u@\h:\033[0m\W\033[1;36m|$\033[0m '
+PS1='\[\e[36m\]\u\[\e[0m\]@\[\e[36m\]\h:\[\e[0m\]\W\[\e[36m\]|$\[\e[0m\] '
 
 export BUILDDIR=/tmp/makepkg
 export HISTSIZE=10000
