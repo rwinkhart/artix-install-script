@@ -71,13 +71,13 @@ chown "$username":"$users" /home/"$username"/.bashrc
 
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/"$device"pacman.conf -o /etc/pacman.conf
+pacman -Sy yay pacman-contrib --noconfirm
 mkdir -p /etc/pacman.d/hooks
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/modemmanager-hook -o /etc/pacman.d/hooks/modemmanager.hook
 if [ "$gpu" == 'NVIDIA' ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
 fi
-pacman -Sy yay --noconfirm
 
 # installing hardware-specific packages
 if [ "$cpu" == 'AuthenticAMD' ]; then
