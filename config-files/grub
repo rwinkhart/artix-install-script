@@ -1,8 +1,8 @@
-# GRUB boot loader configuration - rwinkhart/artix-install-script 06/26/2022
+# GRUB boot loader configuration - rwinkhart/artix-install-script 06/30/2022
 
-GRUB_DEFAULT="Advanced options for Arch Linux>Arch Linux, with Linux linux"
+GRUB_DEFAULT="Advanced options for Artix Linux>Artix Linux, with Linux linux"
 GRUB_TIMEOUT=0
-GRUB_DISTRIBUTOR="Arch"
+GRUB_DISTRIBUTOR="Artix"
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
 GRUB_TIMEOUT_STYLE=menu
 GRUB_TERMINAL_INPUT=console
