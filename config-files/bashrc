@@ -28,6 +28,7 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 
+export EDITOR=micro
 export BUILDDIR=/tmp/makepkg
 export HISTSIZE=10000
 export HISTFILESIZE=100000
