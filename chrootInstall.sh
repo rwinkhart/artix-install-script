@@ -132,7 +132,7 @@ touch /home/"$username"/.ssh/authorized_keys
 chown -R "$username" /home/"$username"/.ssh
 
 # misc configuration
-echo -e '*        hard    memlock        2097152\n*        soft    memlock        64\n# End of file' > /etc/security/limits.conf  # increases hard memlock limit to 2 GiB (useful for some apps, such as rpcs3)
+echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n# End of file" > /etc/security/limits.conf  # increases hard memlock limit to 2 GiB (useful for some apps, such as rpcs3)
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 pacman -S neofetch htop cpupower --needed --noconfirm
