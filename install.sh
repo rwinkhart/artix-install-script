@@ -155,6 +155,8 @@ if [ "$swap" != 0 ]; then
     mkswap /mnt/swapfile
     swapon /mnt/swapfile
     echo 'vm.swappiness=10' > /mnt/etc/sysctl.d/99-swappiness.conf
+else
+    echo 'vm.swappiness=0' > /mnt/etc/sysctl.d/99-swappiness.conf
 fi
 
 fstabgen -U /mnt >> /mnt/etc/fstab
