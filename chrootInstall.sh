@@ -28,7 +28,7 @@ rc-update add NetworkManager
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
 if [ "$boot" == 1 ]; then
-    grub-install --target=x86_64-efi --bootloader-id=GRUB-rwinkhart --recheck
+    grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB-rwinkhart --recheck
 fi
 if [ "$boot" == 2 ]; then
     grub-install --target=i386-pc "$disk"
