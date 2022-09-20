@@ -7,10 +7,10 @@
 
 alias ls='ls --color=auto'
 alias orphans='doas pacman -Rcns $(pacman -Qqdt)'
-alias powersave='doas /usr/bin/cpupower frequency-set -g powersave; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias performance='doas /usr/bin/cpupower frequency-set -g performance; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias schedutil='doas /usr/bin/cpupower frequency-set -g schedutil; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias ondemand='doas /usr/bin/cpupower frequency-set -g ondemand; cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias powersave='doas /usr/local/bin/powerset.sh powersave'
+alias performance='doas /usr/local/bin/powerset.sh performance'
+alias schedutil='doas /usr/local/bin/powerset.sh schedutil'
+alias ondemand='doas /usr/local/bin/powerset.sh ondemand'
 alias poweroff='doas /usr/bin/poweroff'
 alias reboot='doas /usr/bin/reboot'
 

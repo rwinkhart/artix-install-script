@@ -54,10 +54,7 @@ $userpassword
 
 # opendoas configuration
 echo "permit persist keepenv $username as root
-permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g powersave
-permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g performance
-permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g schedutil
-permit nopass $username as root cmd /usr/bin/cpupower args frequency-set -g ondemand
+permit nopass $username as root cmd /usr/local/bin/powerset.sh
 permit nopass $username as root cmd /usr/bin/poweroff
 permit nopass $username as root cmd /usr/bin/reboot
 " > /etc/doas.conf
@@ -117,12 +114,14 @@ fi
 if [ "$formfactor" -lt 4 ]; then
     pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber libpulse plasma-desktop lightdm-openrc lightdm-gtk-greeter kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
     rc-update add lightdm
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.py -o /usr/bin/xcaffeine.py
     mkdir -p /home/"$username"/.config/autostart/
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.desktop -o /home/"$username"/.config/autostart/xcaffeine.desktop
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire-start.sh -o /usr/bin/pipewire-start.sh
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
-    chmod 755 /usr/bin/xcaffeine.py /usr/bin/pipewire-start.sh
+    chmod 755 /usr/local/bin/powerset.sh /usr/bin/xcaffeine.py /usr/bin/pipewire-start.sh
+    chown -R root /usr/local/bin
 fi
 
 # ssh configuration
@@ -135,7 +134,7 @@ chown -R "$username" /home/"$username"/.ssh
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
-pacman -S neofetch htop cpupower --needed --noconfirm
+pacman -S neofetch htop --needed --noconfirm
 
 # setting home directory permissions
 chmod -R 700 /home
