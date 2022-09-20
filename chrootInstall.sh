@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Importing Variables
 formfactor="$(cat /tempfiles/formfactor)"
