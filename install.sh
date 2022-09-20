@@ -38,7 +38,7 @@ read -r -p "timezone: " timezone
 cpu=$(lscpu | grep 'Vendor ID:' | awk 'FNR == 1 {print $3;}')
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
-ram=$(echo "$(cat /proc/meminfo | grep 'MemTotal:' | awk '{print $2;}') / 1000000" | bc)
+ram=$(echo "$(< /proc/meminfo)" | grep 'MemTotal:' | awk '{print $2;}'); ram=$(echo "$ram / 1000000" | bc)
 # stop hardware detection
 
 # start conditional questions
