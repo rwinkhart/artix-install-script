@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# this bashpower script is intended for ASUS gaming laptops, 2020-2022
+# it has been tested on the 2020 Zephyrus G14 (GA401IV)
+# kernel 5.17+ is required for full functionality
+# place in /etc/local.d and use in conjunction with OpenRC for best results
+
+# create config directory and set default settings
+mkdir -p /usr/local/bashpower
+if [ ! -f /usr/local/bashpower/governor ] ; then
+    echo powersave > /usr/local/bashpower/governor
+fi
+if [ ! -f /usr/local/bashpower/batt_limit ] ; then
+    echo 80 > /usr/local/bashpower/batt_limit
+fi
+if [ ! -f /usr/local/bashpower/fan_curve ] ; then
+    echo '20:0 30:0 40:0 50:30 60:50 70:70 85:100 90:100' > /usr/local/bashpower/fan_curve
+fi
+
+# import user settings
+governor=$(< /usr/local/bashpower/governor)
+batt_limit=$(< /usr/local/bashpower/batt_limit)
+fan_curve=$(< /usr/local/bashpower/fan_curve)
+
+## on run:
+
+# set cpu governor
+for CPU in $(seq 0 $(($(nproc) - 1))); do
+    echo $governor > /sys/devices/system/cpu/cpu"$CPU"/cpufreq/scaling_governor
+done
+
+# set keyboard backlight to off
+echo 0 > /sys/class/leds/asus::kbd_backlight/brightness
+
+# set battery charge limit
+echo "$batt_limit" > /sys/class/power_supply/BAT0/charge_control_end_threshold
+
+# set fan curve
+curve_dir=$(ls /sys/devices/platform/asus-nb-wmi/hwmon | awk 'FNR == 2 {print}' | cut -c6-)
+echo 0 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon$(($curve_dir - 1))/pwm1_enable  # set to max speed to force update
+for POINT in $(seq 8); do
+    IFS=':' read -ra CURVE <<< "$(echo "$fan_curve" | awk -v var="$POINT" '{print $var;}')"
+    curve_temp=${CURVE[0]}
+    curve_speed=$(echo "${CURVE[1]} * 255 / 100" | bc)
+    echo $curve_temp > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_auto_point"$POINT"_temp
+    echo $curve_temp > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_auto_point"$POINT"_temp
+    echo $curve_speed > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_auto_point"$POINT"_pwm
+    echo $curve_speed > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_auto_point"$POINT"_pwm
+done
+echo 2 > /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy  # set to quiet profile
+echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon$(($curve_dir - 1))/pwm1_enable  # set to auto
+echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_enable  # set to manual
+echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_enable  # set to manual
