@@ -1,5 +1,5 @@
 [Desktop Entry]
-    Exec=/usr/bin/xcaffeine.py
+    Exec=/usr/local/bin/xcaffeine.py
     Icon=
     Name=xcaffeine
     Path=

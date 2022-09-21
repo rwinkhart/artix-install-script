@@ -115,12 +115,12 @@ if [ "$formfactor" -lt 4 ]; then
     pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber libpulse plasma-desktop lightdm-openrc lightdm-gtk-greeter kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
     rc-update add lightdm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.py -o /usr/bin/xcaffeine.py
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.py -o /usr/local/bin/xcaffeine.py
     mkdir -p /home/"$username"/.config/autostart/
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.desktop -o /home/"$username"/.config/autostart/xcaffeine.desktop
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire-start.sh -o /usr/bin/pipewire-start.sh
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
-    chmod 755 /usr/local/bin/powerset.sh /usr/bin/xcaffeine.py /usr/bin/pipewire-start.sh
+    chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/xcaffeine.py /usr/bin/pipewire-start.sh
     chown -R root /usr/local/bin
 fi
 
