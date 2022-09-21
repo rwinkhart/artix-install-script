@@ -30,4 +30,4 @@ Generic:
 
 Coming soon:
 
-- ASUS Zephyrus G14 (2020) via asusctl/supergfxctl (unofficially packaged as an AppImage with support for OpenRC)
+- ASUS laptops (2020-2022) via a built-in script in /etc/local.d and [supergfxctl](https://gitlab.com/asus-linux/supergfxctl) (running under OpenRC, of course)
