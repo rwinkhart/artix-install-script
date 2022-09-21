@@ -1,7 +1,7 @@
 [Desktop Entry]
-    Exec=/usr/bin/pipewire-start.sh
+    Exec=/usr/local/bin/pipewire-start.sh
     Icon=
-    Name=pipewire-starter
+    Name=pipewire-start
     Path=
     Terminal=False
     Type=Application
