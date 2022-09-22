@@ -120,8 +120,9 @@ if [ "$formfactor" -lt 4 ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.desktop -o /home/"$username"/.config/autostart/xcaffeine.desktop
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
-    chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/xcaffeine.sh /usr/local/bin/pipewire-start.sh
-    chown -R root /usr/local/bin
+    echo -e \#\!/usr/bin/env bash"\nfstrim -Av" > /etc/local.d/trim.start
+    chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/xcaffeine.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
+    chown -R root /usr/local/bin /etc/local.d
 fi
 
 # ssh configuration
