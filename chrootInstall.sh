@@ -179,6 +179,7 @@ if [ "$formfactor" == 1 ]; then
     rc-add supergfxd
     rc-service supergfxd start
     supergfxctl -m integrated
+fi
 
 # ssh configuration
 pacman -S openssh --needed --noconfirm
