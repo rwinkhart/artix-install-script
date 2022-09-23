@@ -3,15 +3,14 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated september 21, 2022
+echo last updated september 22, 2022
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
 read -n 1 -s -r -p 'Press any key to continue'
 
 # start questions
-echo Special Devices:
-echo -e '\nspecial devices:\n1. asus rog zephyrus g14 2020 (not yet supported)\ngeneric:\n2. laptop\n3. desktop\n4. server\n'
+echo -e '\nspecial devices:\n1. asus zephyrus g14 (2020)\ngeneric:\n2. laptop\n3. desktop\n4. server\n'
 read -n 1 -r -p "formfactor: " formfactor
 
 fdisk -l
@@ -54,15 +53,13 @@ username=$(echo "$username" | tr '[:upper:]' '[:lower:]')
 hostname=$(echo "$hostname" | tr '[:upper:]' '[:lower:]')
 
 disk0=$disk
-if [[ "$disk" == /dev/nvme0n* ]]; then
-    disk="$disk"'p'
-fi
-if [[ "$disk" == /dev/mmcblk* ]]; then
+if [[ "$disk" == /dev/nvme0n* ]] || [[ "$disk" == /dev/mmcblk* ]]; then
     disk="$disk"'p'
 fi
 
 if [ "$formfactor" == 1 ]; then
     device='g14-'
+    gpu=NVIDIA
 else
     device=''
 fi
@@ -169,7 +166,7 @@ echo "$hostname" > /mnt/etc/hostname
 echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
 
 # installing base packages
-base_devel='db diffutils gc guile libisl libmpc perl autoconf automake binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf python sed opendoas texinfo which'
+base_devel='db diffutils gc guile libisl libmpc perl autoconf automake binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf python sed opendoas texinfo which bc'
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git micro man-db
 
 # exporting variables

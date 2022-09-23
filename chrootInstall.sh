@@ -101,7 +101,7 @@ fi
 # disable kernel watchdog
 echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
-if [ "$formfactor" == 2 ]; then
+if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
     pacman -S powertop acpid-openrc acpilight --needed --noconfirm
     rc-update add acpid
     echo 'SUBSYSTEM=="backlight", ACTION=="add", \
@@ -124,6 +124,60 @@ if [ "$formfactor" -lt 4 ]; then
     chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/xcaffeine.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
     chown -R root /usr/local/bin /etc/local.d
 fi
+
+# asus g14 2020 configuration
+if [ "$formfactor" == 1 ]; then
+    echo 'options snd_hda_intel power_save=1' > /etc/modprobe.d/audio_powersave.conf
+    echo 'vm.dirty_writeback_centisecs = 6000' > /etc/sysctl.d/dirty.conf
+    echo 'RUN+="/bin/chgrp classmod /sys/class/leds/asus::kbd_backlight/brightness"
+    RUN+="/bin/chmod g+w /sys/class/leds/asus::kbd_backlight/brightness"
+    ' > /etc/udev/rules.d/asuskbdbacklight.rules
+    echo '# Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
+    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
+    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
+    # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
+    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
+    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
+    ' > /etc/udev/rules.d/90-asusd-nvidia-pm.rules
+    echo 'evdev:input:b0003v0B05p1866*
+      KEYBOARD_KEY_c00b6=home # Fn+F2
+      KEYBOARD_KEY_c00b5=end   # Fn+F4
+      KEYBOARD_KEY_ff31007c=f20 # x11 mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
+    systemd-hwdb update
+    udevadm trigger
+    # xbindkeys config
+    echo '#ScreenBrightUp
+    "xbacklight -inc 10"
+        m:0x0 + c:210
+        XF86Launch3
+    #ScreenBrightDown
+    "xbacklight -dec 10"
+        m:0x0 + c:157
+        XF86Launch2
+    #G14KeyBrightUp
+    "xbacklight -ctrl asus::kbd_backlight -inc 30"
+        m:0x0 + c:238
+        XF86KbdBrightnessUp
+    #G14KeyBrightDown
+    "xbacklight -ctrl asus::kbd_backlight -dec 30"
+        m:0x0 + c:237
+        XF86KbdBrightnessDown
+    #G14IntegratedGPU
+    "supergfxctl -m integrated; pkill -KILL -u '"$username"'"
+        m:0x0 + c:232
+        XF86MonBrightnessDown
+    #G14DedicatedGPU
+    "supergfxctl -m dedicated; pkill -KILL -u '"$username"'"
+        m:0x0 + c:233
+        XF86MonBrightnessUp' > /home/"$username"/.xbindkeysrc
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.stop -o /etc/local.d/bashpower.stop
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/supergfxd-openrc/supergfxd -o /etc/init.d/supergfxd
+    pacman -S supergfxctl mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
+    chmod 755 /etc/local.d/bashpower.start /etc/local.d/bashpower.stop /etc/init.d/supergfxd
+    rc-add supergfxd
+    rc-service supergfxd start
+    supergfxctl -m integrated
 
 # ssh configuration
 pacman -S openssh --needed --noconfirm

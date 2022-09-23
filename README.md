@@ -28,6 +28,6 @@ Generic:
 
 - Most x86_64 desktops, laptops, and servers
 
-Coming soon:
+Special:
 
-- ASUS laptops (2020-2022) via a built-in script in /etc/local.d and [supergfxctl](https://gitlab.com/asus-linux/supergfxctl) (running under OpenRC, of course)
+- ASUS Zephyrus G14 (2020)
