@@ -13,6 +13,7 @@ username="$(< /tempfiles/username)"
 userpassword="$(< /tempfiles/userpassword)"
 rootpassword="$(< /tempfiles/rootpassword)"
 timezone="$(< /tempfiles/timezone)"
+swap="$(< /tempfiles/swap)"
 
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
@@ -188,6 +189,11 @@ touch /home/"$username"/.ssh/authorized_keys
 chown -R "$username" /home/"$username"/.ssh
 
 # misc configuration
+if [ "$swap" -gt 0 ]; then
+    echo 'vm.swappiness=10' > /etc/sysctl.d/99-swappiness.conf
+else
+    echo 'vm.swappiness=0' > /etc/sysctl.d/99-swappiness.conf
+fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input

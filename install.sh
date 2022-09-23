@@ -147,14 +147,11 @@ else
 fi
 
 # create and mount swap file
-if [ "$swap" != 0 ]; then
+if [ "$swap" -gt 0 ]; then
     dd if=/dev/zero of=/mnt/swapfile bs=1G count="$swap" status=progress
     chmod 600 /mnt/swapfile
     mkswap /mnt/swapfile
     swapon /mnt/swapfile
-    echo 'vm.swappiness=10' > /mnt/etc/sysctl.d/99-swappiness.conf
-else
-    echo 'vm.swappiness=0' > /mnt/etc/sysctl.d/99-swappiness.conf
 fi
 
 fstabgen -U /mnt >> /mnt/etc/fstab
@@ -183,6 +180,7 @@ echo "$username" > /mnt/tempfiles/username
 echo "$userpassword" > /mnt/tempfiles/userpassword
 echo "$rootpassword" > /mnt/tempfiles/rootpassword
 echo "$timezone" > /mnt/tempfiles/timezone
+echo "$swap" > /mnt/tempfiles/swap
 
 # download and initiate part 2
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh
