@@ -112,8 +112,9 @@ fi
 
 # installing desktop environment and addons + utilities
 if [ "$formfactor" -lt 4 ]; then
-    pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber libpulse plasma-desktop lightdm-openrc lightdm-gtk-greeter kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
-    rc-update add lightdm
+    pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber libpulse plasma-desktop xorg-xinit kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
+    echo -e "export DESKTOP_SESSION=plasma\nexec startplasma-x11" > /home/"$username"/.xinitrc
+    echo -e "if [ -z "\${DISPLAY}" ] && [ "\${XDG_VTNR}" -eq 1 ]; then exec startx; fi" >> /home/"$username"/.bash_profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.sh -o /usr/local/bin/xcaffeine.sh
     mkdir -p /home/"$username"/.config/autostart/
