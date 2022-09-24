@@ -145,7 +145,6 @@ if [ "$formfactor" == 1 ]; then
       KEYBOARD_KEY_c00b6=home # Fn+F2
       KEYBOARD_KEY_c00b5=end   # Fn+F4
       KEYBOARD_KEY_ff31007c=f20 # x11 mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
-    systemd-hwdb update
     udevadm trigger
     # xbindkeys config
     echo '#ScreenBrightUp
@@ -165,21 +164,20 @@ if [ "$formfactor" == 1 ]; then
         m:0x0 + c:237
         XF86KbdBrightnessDown
     #G14IntegratedGPU
-    "supergfxctl -m integrated; pkill -KILL -u '"$username"'"
+    "/usr/bin/nvidia_off.sh; pkill -KILL -u '"$username"'"
         m:0x0 + c:232
         XF86MonBrightnessDown
     #G14DedicatedGPU
-    "supergfxctl -m dedicated; pkill -KILL -u '"$username"'"
+    "/usr/bin/nvidia_on.sh; pkill -KILL -u '"$username"'"
         m:0x0 + c:233
         XF86MonBrightnessUp' > /home/"$username"/.xbindkeysrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.stop -o /etc/local.d/bashpower.stop
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/supergfxd-openrc/supergfxd -o /etc/init.d/supergfxd
-    pacman -S supergfxctl mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
-    chmod 755 /etc/local.d/bashpower.start /etc/local.d/bashpower.stop /etc/init.d/supergfxd
-    rc-add supergfxd
-    rc-service supergfxd start
-    supergfxctl -m integrated
+    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
+    curl -L https://github.com/rwinkhart/nvidia-manager/releases/download/v1.0.0/nvidia-manager-1.0.0-1-any.pkg.tar.zst -o nvidia-manager-1.0.0-1-any.pkg.tar.zst
+    pacman -U nvidia-manager-1.0.0-1-any.pkg.tar.zst --noconfirm
+    rm -rf nvidia-manager-1.0.0-1-any.pkg.tar.zst
+    chmod 755 /etc/local.d/bashpower.start /etc/local.d/bashpower.stop
 fi
 
 # ssh configuration
