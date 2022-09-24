@@ -174,9 +174,9 @@ if [ "$formfactor" == 1 ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.stop -o /etc/local.d/bashpower.stop
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
-    curl -L https://github.com/rwinkhart/nvidia-manager/releases/download/v1.0.0/nvidia-manager-1.0.0-1-any.pkg.tar.zst -o nvidia-manager-1.0.0-1-any.pkg.tar.zst
-    pacman -U nvidia-manager-1.0.0-1-any.pkg.tar.zst --noconfirm
-    rm -rf nvidia-manager-1.0.0-1-any.pkg.tar.zst
+    curl -L https://github.com/rwinkhart/nvidia-manager/releases/download/v1.0.1/nvidia-manager-1.0.1-1-any.pkg.tar.zst -o nvidia-manager-1.0.1-1-any.pkg.tar.zst
+    pacman -U nvidia-manager-1.0.1-1-any.pkg.tar.zst --noconfirm
+    rm -rf nvidia-manager-1.0.1-1-any.pkg.tar.zst
     chmod 755 /etc/local.d/bashpower.start /etc/local.d/bashpower.stop
 fi
 
