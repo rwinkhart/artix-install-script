@@ -112,7 +112,7 @@ if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
 fi
 
 # installing desktop environment and addons + utilities
-if [ "$formfactor" -lt 4 ]; then
+if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
     pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber libpulse plasma-desktop xorg-xinit kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
     echo -e "export DESKTOP_SESSION=plasma\nexec startplasma-x11" > /home/"$username"/.xinitrc
     echo -e "if [ -z "\${DISPLAY}" ] && [ "\${XDG_VTNR}" -eq 1 ]; then exec startx; fi" >> /home/"$username"/.bash_profile
@@ -196,7 +196,7 @@ echo -e ""$username"        soft    memlock        64\n"$username"        hard  
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 pacman -S neofetch htop --needed --noconfirm
-rc-update add local
+rc-update add local default
 
 # setting home directory permissions
 chmod -R 700 /home
