@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated september 22, 2022
+echo last updated september 24, 2022
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -58,10 +58,7 @@ if [[ "$disk" == /dev/nvme0n* ]] || [[ "$disk" == /dev/mmcblk* ]]; then
 fi
 
 if [ "$formfactor" == 1 ]; then
-    device='g14-'
     gpu=NVIDIA
-else
-    device=''
 fi
 # stop variable manipulation
 
@@ -169,7 +166,6 @@ basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git m
 # exporting variables
 mkdir /mnt/tempfiles
 echo "$formfactor" > /mnt/tempfiles/formfactor
-echo "$device" > /mnt/tempfiles/device
 echo "$cpu" > /mnt/tempfiles/cpu
 echo "$threadsminusone" > /mnt/tempfiles/threadsminusone
 echo "$gpu" > /mnt/tempfiles/gpu

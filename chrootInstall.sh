@@ -2,7 +2,6 @@
 
 # Importing Variables
 formfactor="$(< /tempfiles/formfactor)"
-device="$(< /tempfiles/device)"
 cpu="$(< /tempfiles/cpu)"
 threadsminusone="$(< /tempfiles/threadsminusone)"
 gpu="$(< /tempfiles/gpu)"
@@ -68,7 +67,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 chown "$username":"$users" /home/"$username"/.bashrc
 
 # pacman configuration
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/"$device"pacman.conf -o /etc/pacman.conf
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
 pacman -Sy yay pacman-contrib --noconfirm
 mkdir -p /etc/pacman.d/hooks
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
@@ -134,13 +133,6 @@ if [ "$formfactor" == 1 ]; then
     echo 'RUN+="/bin/chgrp classmod /sys/class/leds/asus::kbd_backlight/brightness"
     RUN+="/bin/chmod g+w /sys/class/leds/asus::kbd_backlight/brightness"
     ' > /etc/udev/rules.d/asuskbdbacklight.rules
-    echo '# Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
-    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
-    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
-    # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
-    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
-    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
-    ' > /etc/udev/rules.d/90-asusd-nvidia-pm.rules
     echo 'evdev:input:b0003v0B05p1866*
       KEYBOARD_KEY_c00b6=home # Fn+F2
       KEYBOARD_KEY_c00b5=end   # Fn+F4
@@ -164,20 +156,18 @@ if [ "$formfactor" == 1 ]; then
         m:0x0 + c:237
         XF86KbdBrightnessDown
     #G14IntegratedGPU
-    "/usr/bin/nvidia_off.sh; pkill -KILL -u '"$username"'"
+    "/usr/bin/NVIDIA-FCKR integrated"
         m:0x0 + c:232
         XF86MonBrightnessDown
-    #G14DedicatedGPU
-    "/usr/bin/nvidia_on.sh; pkill -KILL -u '"$username"'"
+    #G14HybridGPU
+    "/usr/bin/NVIDIA-FCKR hybrid"
         m:0x0 + c:233
         XF86MonBrightnessUp' > /home/"$username"/.xbindkeysrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.stop -o /etc/local.d/bashpower.stop
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/NVIDIA-FCKR/NVIDIA-FCKR -o /usr/local/bin/NVIDIA-FCKR
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
-    curl -L https://github.com/rwinkhart/nvidia-manager/releases/download/v1.0.1/nvidia-manager-1.0.1-1-any.pkg.tar.zst -o nvidia-manager-1.0.1-1-any.pkg.tar.zst
-    pacman -U nvidia-manager-1.0.1-1-any.pkg.tar.zst --noconfirm
-    rm -rf nvidia-manager-1.0.1-1-any.pkg.tar.zst
-    chmod 755 /etc/local.d/bashpower.start /etc/local.d/bashpower.stop
+    chmod 755 /etc/local.d/bashpower.start /etc/local.d/bashpower.stop /usr/local/bin/NVIDIA-FCKR
 fi
 
 # ssh configuration

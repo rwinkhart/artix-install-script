@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# NVIDIA-FCKR
+
+if [ "$1" == 'integrated' ]; then
+
+    # blacklist kernel modules
+    echo "blacklist nouveau
+blacklist nvidia
+blacklist nvidia_drm
+blacklist nvidia_uvm
+blacklist nvidia_modeset
+alias nouveau off
+alias nvidia off
+alias nvidia_drm off
+alias nvidia_uvm off
+alias nvidia_modeset off" > /etc/modprobe.d/NVIDIA-FCKR.conf
+
+    # set udev rules
+    echo 'ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+# Remove NVIDIA USB Type-C UCSI devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+# Remove NVIDIA Audio devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+# Remove NVIDIA VGA/3D controller devices
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"' > /lib/udev/rules.d/50-NVIDIA-FCKR.rules
+
+    # disable GPU via acpi_call on next boot
+    echo -e '#!/usr/bin/env bash\necho '"'\_SB.PCI0.GPP0.PG00._OFF'"' > /proc/acpi/call' > /etc/local.d/NVIDIA-FCKR.start
+    chmod +x /etc/local.d/NVIDIA-FCKR.start
+
+    /usr/bin/reboot
+
+elif [ "$1" == 'hybrid' ]; then
+    rm -rf /etc/modprobe.d/NVIDIA-FCKR.conf /lib/udev/rules.d/50-NVIDIA-FCKR.rules /etc/local.d/NVIDIA-FCKR.start
+
+    /usr/bin/reboot
+
+else
+    echo -e "invalid argument: $1\nusage: NVIDIA-FCKR [integrated/hybrid]"
+fi
