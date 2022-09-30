@@ -36,7 +36,6 @@ echo "$batt_limit" > /sys/class/power_supply/BAT0/charge_control_end_threshold
 
 # set fan curve
 curve_dir=$(ls /sys/devices/platform/asus-nb-wmi/hwmon | awk 'FNR == 2 {print}' | cut -c6-)
-echo 0 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon$(($curve_dir - 1))/pwm1_enable  # set to max speed to force update
 for POINT in $(seq 8); do
     IFS=':' read -ra CURVE <<< "$(echo "$fan_curve" | awk -v var="$POINT" '{print $var;}')"
     curve_temp=${CURVE[0]}
@@ -48,5 +47,8 @@ for POINT in $(seq 8); do
 done
 echo 2 > /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy  # set to quiet profile
 echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon$(($curve_dir - 1))/pwm1_enable  # set to auto
+echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_enable  # set to auto to force update
+echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_enable  # set to auto to force update
+sleep 2
 echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_enable  # set to manual
 echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_enable  # set to manual
