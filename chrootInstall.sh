@@ -119,8 +119,8 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.sh -o /usr/local/bin/xcaffeine.sh
     mkdir -p /home/"$username"/.config/autostart/
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.desktop -o /home/"$username"/.config/autostart/xcaffeine.desktop
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
     echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
     chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/xcaffeine.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
     chown -R root /usr/local/bin /etc/local.d
