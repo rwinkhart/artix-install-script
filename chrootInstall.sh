@@ -137,7 +137,8 @@ if [ "$formfactor" == 1 ]; then
       KEYBOARD_KEY_c00b6=home # Fn+F2
       KEYBOARD_KEY_c00b5=end   # Fn+F4
       KEYBOARD_KEY_ff31007c=f20 # x11 mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
-    udevadm trigger
+    udevadm control --reload-rules
+    udevadm trigger --sysname-match="event*"
     # xbindkeys config
     echo '#ScreenBrightUp
     "xbacklight -inc 10"
