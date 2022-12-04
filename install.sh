@@ -74,6 +74,7 @@ if [ "$boot" == 1 ]; then
     # gpt/uefi partitioning
     if [ "$wipe" == y ]; then
         partitions=0
+        wipefs --all --force "$disk0"
         echo "g
         n
         1
