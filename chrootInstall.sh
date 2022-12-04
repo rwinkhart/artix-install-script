@@ -58,7 +58,7 @@ permit nopass $username as root cmd /usr/local/bin/powerset.sh
 permit nopass $username as root cmd /usr/bin/poweroff
 permit nopass $username as root cmd /usr/bin/reboot
 " > /etc/doas.conf
-
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/doas-completion -o /usr/share/bash-completion/completions/doas
 ln -s /usr/bin/doas /usr/bin/sudo
 
 # misc. configuration
