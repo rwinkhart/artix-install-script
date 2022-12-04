@@ -112,13 +112,10 @@ fi
 
 # installing desktop environment and addons + utilities
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S xorg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber libpulse plasma-desktop xorg-xinit kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
-    echo -e "export DESKTOP_SESSION=plasma\nexec startplasma-x11" > /home/"$username"/.xinitrc
-    echo -e "if [ -z "\${DISPLAY}" ] && [ "\${XDG_VTNR}" -eq 1 ]; then exec startx; fi" >> /home/"$username"/.bash_profile
+    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit plasma-desktop plasma-wayland-session kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
+    echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec startplasma-wayland; fi" >> /home/"$username"/.bash_profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.sh -o /usr/local/bin/xcaffeine.sh
     mkdir -p /home/"$username"/.config/autostart/
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/xcaffeine/xcaffeine.desktop -o /home/"$username"/.config/autostart/xcaffeine.desktop
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
     echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
