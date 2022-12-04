@@ -175,6 +175,7 @@ pacman -S openssh --needed --noconfirm
 mkdir /home/"$username"/.ssh
 touch /home/"$username"/.ssh/authorized_keys
 chown -R "$username" /home/"$username"/.ssh
+chmod 600 /home/"$username"/.ssh/authorized_keys
 
 # misc configuration
 if [ "$swap" -gt 0 ]; then
@@ -187,11 +188,6 @@ mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 pacman -S neofetch htop --needed --noconfirm
 rc-update add local default
-
-# setting home directory permissions
-chmod -R 700 /home
-chown -R "$username":users /home/"$username"
-chmod 600 /home/"$username"/.ssh/authorized_keys
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
