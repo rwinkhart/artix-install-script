@@ -113,6 +113,8 @@ fi
 # set home directory permissions
 mkdir -p /home/"$username"/{.config,.local/share}
 chmod 700 /home/"$username"
+chown "$username":users /home/"$username"/{.config,.local}
+chown "$username":users /home/"$username"/.local/share
 chmod 755 /home/"$username"/{.config,.local/share}
 
 # installing desktop environment and addons + utilities
