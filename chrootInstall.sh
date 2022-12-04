@@ -110,6 +110,11 @@ if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
     ' > /etc/udev/rules.d/screenbacklight.rules
 fi
 
+# set home directory permissions
+mkdir -p /home/"$username"/{.config,.local/share}
+chmod 700 /home/"$username"
+chmod 755 /home/"$username"/{.config,.local/share}
+
 # installing desktop environment and addons + utilities
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
     pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit plasma-desktop plasma-wayland-session kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
