@@ -120,7 +120,7 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 # installing desktop environment and addons + utilities
 if [ "$desktop" != 0 ]; then
-    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit pcmanfm-qt micro bluez-openrc
+    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit micro bluez-openrc --needed --noconfirm
 fi
 
 ## KDE Plasma
