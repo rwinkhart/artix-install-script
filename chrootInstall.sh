@@ -82,7 +82,7 @@ if [ "$cpu" == 'AuthenticAMD' ]; then
 else
     pacman -S intel-ucode --noconfirm
 fi
-if [ "$gpu" == 'AMD' ]; then
+if [ "$gpu" == 'AMD' ] || [ "$gpu" == 'Advanced' ]; then
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
 elif [ "$gpu" == 'Intel' ]; then
     pacman -S mesa vulkan-icd-loader vulkan-intel --needed --noconfirm
