@@ -5,6 +5,7 @@ formfactor="$(< /tempfiles/formfactor)"
 cpu="$(< /tempfiles/cpu)"
 threadsminusone="$(< /tempfiles/threadsminusone)"
 gpu="$(< /tempfiles/gpu)"
+desktop="$(< /tempfiles/desktop)"
 intel_vaapi_driver="$(< /tempfiles/intel_vaapi_driver)"
 boot="$(< /tempfiles/boot)"
 disk="$(< /tempfiles/disk)"
@@ -118,17 +119,29 @@ chown "$username":users /home/"$username"/.local/share
 chmod 755 /home/"$username"/{.config,.local/share}
 
 # installing desktop environment and addons + utilities
-if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit plasma-desktop plasma-wayland-session kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate micro bluedevil bluez-openrc --needed --noconfirm
-    echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec dbus-run-session startplasma-wayland; fi" >> /home/"$username"/.bash_profile
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
-    mkdir -p /home/"$username"/.config/autostart/
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
-    echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
-    chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
-    chown -R root /usr/local/bin /etc/local.d
+if [ "$desktop" != 0 ]; then
+    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit pcmanfm-qt micro bluez-openrc
 fi
+
+## KDE Plasma
+if [ "$desktop" == 1 ]; then
+    pacman -S plasma-desktop plasma-wayland-session kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil pcmanfm-qt --needed --noconfirm
+    echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec dbus-run-session startplasma-wayland; fi" >> /home/"$username"/.bash_profile
+fi
+
+## Sway
+if [ "$desktop" == 2 ]; then
+    pacman -S sway waybar fuzzel foot ranger p7zip --needed --noconfirm
+    echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec sway; fi" >> /home/"$username"/.bash_profile
+fi
+
+mkdir -p /home/"$username"/.config/autostart/
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
+echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
+chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
+chown -R root /usr/local/bin /etc/local.d
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then

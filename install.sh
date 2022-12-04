@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated december 03, 2022
+echo last updated december 04, 2022
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -41,6 +41,12 @@ ram=$(echo "$(< /proc/meminfo)" | grep 'MemTotal:' | awk '{print $2;}'); ram=$(e
 # stop hardware detection
 
 # start conditional questions
+if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
+    echo -e '1. KDE Plasma\n2. Sway\n'
+    read -n 1 -rp "desktop: " desktop
+else
+    desktop=0
+fi
 if [ "$gpu" == 'Intel' ]; then
     echo -e '1. libva-intel-driver (intel igpus up to coffee lake)\n2. intel-media-driver (intel igpus/dgpus newer than coffee lake)\n'
     read -n 1 -rp "va-api driver: " intel_vaapi_driver
@@ -170,6 +176,7 @@ echo "$formfactor" > /mnt/tempfiles/formfactor
 echo "$cpu" > /mnt/tempfiles/cpu
 echo "$threadsminusone" > /mnt/tempfiles/threadsminusone
 echo "$gpu" > /mnt/tempfiles/gpu
+echo "$desktop" > /mnt/tempfiles/desktop
 echo "$intel_vaapi_driver" > /mnt/tempfiles/intel_vaapi_driver
 echo "$boot" > /mnt/tempfiles/boot
 echo "$disk0" > /mnt/tempfiles/disk

@@ -9,7 +9,7 @@ Some major/noteworthy differences from common configurations:
 - EXT4 fast_commit mode is enabled by default
 - makepkg is configured for better than stock performance
 - a custom .bashrc with useful power management aliases is included
-- ...all of this and more on KDE Plasma Wayland
+- ...all of this and more on KDE Plasma (Wayland)/Sway
 
 # Usage
 Upon loading up the official Artix base ISO (tested on weekly base images only), logging in, connecting to the internet, and switching to the root user, run:
