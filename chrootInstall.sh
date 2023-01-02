@@ -36,10 +36,12 @@ if [ "$boot" == 2 ]; then
 fi
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/grub -o /etc/default/grub
-if [ "$gpu" != 'NVIDIA' ]; then
-    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog retbleed=off mem_sleep_default=deep nohz_full=1-"$threadsminusone"\"" >> /etc/default/grub
-else
+if [ "$gpu" == 'NVIDIA' ]; then
     echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog retbleed=off mem_sleep_default=deep nohz_full=1-"$threadsminusone" nvidia-drm.modeset=1\"" >> /etc/default/grub
+elif [ "$gpu" == 'AMD' ]; then
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog retbleed=off mem_sleep_default=deep nohz_full=1-"$threadsminusone" amdgpu.ppfeaturemask=0xffffffff\"" >> /etc/default/grub
+else
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog retbleed=off mem_sleep_default=deep nohz_full=1-"$threadsminusone"\"" >> /etc/default/grub
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -83,7 +85,7 @@ if [ "$cpu" == 'AuthenticAMD' ]; then
 else
     pacman -S intel-ucode --noconfirm
 fi
-if [ "$gpu" == 'AMD' ] || [ "$gpu" == 'Advanced' ]; then
+if [ "$gpu" == 'AMD' ]; then
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
 elif [ "$gpu" == 'Intel' ]; then
     pacman -S mesa vulkan-icd-loader vulkan-intel --needed --noconfirm
