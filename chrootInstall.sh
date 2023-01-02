@@ -122,12 +122,12 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 # installing desktop environment and addons + utilities
 if [ "$desktop" != 0 ]; then
-    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber polkit micro bluez-openrc --needed --noconfirm
+    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit micro bluez-openrc --needed --noconfirm
 fi
 
 ## KDE Plasma
 if [ "$desktop" == 1 ]; then
-    pacman -S plasma-desktop plasma-wayland-session kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil pcmanfm-qt --needed --noconfirm
+    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil pcmanfm-qt --needed --noconfirm
     echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec dbus-run-session startplasma-wayland; fi" >> /home/"$username"/.bash_profile
 fi
 
