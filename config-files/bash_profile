@@ -2,9 +2,6 @@
 # ~/.bash_profile
 #
 
-#[[ -f ~/.bashrc ]] && . ~/.bashrc
-#if [ -z ${DISPLAY} ] && [ ${XDG_VTNR} -eq 1 ]; then exec startx; fi
-
 # WAYLAND ENV
 export MOZ_ENABLE_WAYLAND=1
 export WAYLAND_PROTOCOLS_DATADIR="/usr/share/wayland-protocols"
@@ -25,3 +22,5 @@ export EDITOR=micro
 export BUILDDIR=/tmp/makepkg
 export HISTSIZE=10000
 export HISTFILESIZE=100000
+
+if [ -z $DISPLAY ] && [ $(tty) = /dev/tty6 ]; then exec setterm --blank=force; exit; fi
