@@ -127,7 +127,7 @@ fi
 
 ## KDE Plasma
 if [ "$desktop" == 1 ]; then
-    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil pcmanfm-qt --needed --noconfirm
+    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
     echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec dbus-run-session startplasma-wayland; fi" >> /home/"$username"/.bash_profile
 fi
