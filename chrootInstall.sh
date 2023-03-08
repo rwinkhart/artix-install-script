@@ -5,7 +5,6 @@ formfactor="$(< /tempfiles/formfactor)"
 cpu="$(< /tempfiles/cpu)"
 threadsminusone="$(< /tempfiles/threadsminusone)"
 gpu="$(< /tempfiles/gpu)"
-desktop="$(< /tempfiles/desktop)"
 intel_vaapi_driver="$(< /tempfiles/intel_vaapi_driver)"
 boot="$(< /tempfiles/boot)"
 disk="$(< /tempfiles/disk)"
@@ -120,22 +119,11 @@ chown "$username":users /home/"$username"/{.config,.local}
 chown "$username":users /home/"$username"/.local/share
 chmod 755 /home/"$username"/{.config,.local/share}
 
-# installing desktop environment and addons + utilities
-if [ "$desktop" != 0 ]; then
-    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit micro bluez-openrc --needed --noconfirm
-fi
-
 ## KDE Plasma
-if [ "$desktop" == 1 ]; then
-    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin qt5-imageformats --needed --noconfirm
+if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
+    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit micro bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
     echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec dbus-run-session startplasma-wayland; fi" >> /home/"$username"/.bash_profile
-fi
-
-## Sway
-if [ "$desktop" == 2 ]; then
-    pacman -S sway waybar fuzzel foot ranger p7zip --needed --noconfirm
-    echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec sway; fi" >> /home/"$username"/.bash_profile
 fi
 
 mkdir -p /home/"$username"/.config/autostart/
