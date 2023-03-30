@@ -1,6 +1,4 @@
-#
-# ~/.bash_profile
-#
+#!/bin/sh
 
 # WAYLAND ENV
 export MOZ_ENABLE_WAYLAND=1
@@ -13,14 +11,11 @@ export XDG_STATE_HOME="$HOME"/.local/state
 export XDG_CACHE_HOME="$HOME"/.cache
 
 # DOTFILE MANAGEMENT
-export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 
 export EDITOR=micro
 export BUILDDIR=/tmp/makepkg
-export HISTSIZE=10000
-export HISTFILESIZE=100000
 
-if [ -z $DISPLAY ] && [ $(tty) = /dev/tty6 ]; then exec setterm --blank=force; exit; fi
+[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && exec dbus-run-session startplasma-wayland

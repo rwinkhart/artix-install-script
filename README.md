@@ -7,9 +7,10 @@ Some major/noteworthy differences from common configurations:
 - pipewire is used in place of pulseaudio
 - OpenRC is the chosen init system
 - EXT4 fast_commit mode is enabled by default
-- makepkg is configured for better than stock performance
-- a custom .bashrc with useful power management aliases is included
-- ...all of this and more on KDE Plasma (Wayland)
+- makepkg is configured for better than stock performance and uses more space-efficient compression
+- dash is used as the system and login shell
+- custom zshrc and bashrc files are included with useful system management aliases
+- ...all of this and more on KDE Plasma Wayland
 
 # Usage
 Upon loading up the official Artix base ISO (tested on weekly base images only), logging in, connecting to the internet, and switching to the root user, run:

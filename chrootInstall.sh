@@ -28,7 +28,7 @@ rc-update add NetworkManager
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
 if [ "$boot" == 1 ]; then
-    grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB-rwinkhart --recheck
+    grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck
 fi
 if [ "$boot" == 2 ]; then
     grub-install --target=i386-pc "$disk"
@@ -63,19 +63,26 @@ permit nopass $username as root cmd /usr/bin/reboot
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/doas-completion -o /usr/share/bash-completion/completions/doas
 ln -s /usr/bin/doas /usr/bin/sudo
 
-# misc. configuration
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
+# shell configuration
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/shell-profile -o /home/"$username"/.profile
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/bashrc -o /home/"$username"/.bashrc
-chown "$username":"$users" /home/"$username"/.bashrc
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/zshrc -o /home/"$username"/.zshrc
+chown "$username":users /home/"$username"/{.profile,.bashrc,.zshrc}
+chsh -s /bin/dash "$username"
+ln -sfT dash /usr/bin/sh
+pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
 
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
-pacman -Sy yay pacman-contrib --noconfirm
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
+pacman -S pacman-contrib --noconfirm
 mkdir -p /etc/pacman.d/hooks
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/modemmanager-hook -o /etc/pacman.d/hooks/modemmanager.hook
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean.hook -o /etc/pacman.d/hooks/paccache-clean.hook
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/modemmanager.hook -o /etc/pacman.d/hooks/modemmanager.hook
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/dash-link.hook -o /etc/pacman.d/hooks/dash-link.hook
 if [ "$gpu" == 'NVIDIA' ]; then
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia.hook -o /etc/pacman.d/hooks/nvidia.hook
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-lts.hook -o /etc/pacman.d/hooks/nvidia-lts.hook
 fi
 
 # installing hardware-specific packages
@@ -123,10 +130,12 @@ chmod 755 /home/"$username"/{.config,.local/share}
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
     pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit micro bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
-    echo -e "if [ -z \$DISPLAY ] && [ "\$\(tty\)" = "/dev/tty1" ]; then exec dbus-run-session startplasma-wayland; fi" >> /home/"$username"/.bash_profile
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
+    chmod 755 /home/"$username"/.config/konsolerc
+    chown "$username":users /home/"$username"/.config/konsolerc
 fi
 
-mkdir -p /home/"$username"/.config/autostart/
+mkdir /home/"$username"/.config/autostart
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh

@@ -1,0 +1,52 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.local/share/zsh/histfile
+HISTSIZE=1000
+SAVEHIST=1000
+unsetopt beep
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/cuan/.zshrc'
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# The following lines represent custom user configuration
+art_cat='%F{214}/\_,_/\
+\ 0 0 /%f'
+art_dog=' %F{222}/___/
+| 6.6 |%f'
+art_snail=' %F{114}|_/
+/o o\%f'
+art_bunny=' /_/
+|^.^|'
+art_jellyfish='%F{183}<===>
+//|\\%f'
+art_school='    %F{214}<°))><     %F{222}><(((.>
+%F{114}><(((°>   %F{183}><((((°>%f'
+art_array=("$art_cat" "$art_dog" "$art_snail" "$art_bunny" "$art_jellyfish" "$art_school")
+print -Pr "$art_array[$((RANDOM%6+1))]"
+PS1='%F{cyan}%n%f@%F{cyan}%m:%f%1~%f%F{cyan}|%#%f '
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[[3~' delete-char
+function yakuake_clear() {
+    clear
+    print -Pr "$art_array[$((RANDOM%6+1))]"
+    print -Pn $PS1
+}
+zle -N zsh-redraw yakuake_clear
+bindkey "^L" zsh-redraw
+# End of lines representing custom user configuration
+# The following lines represent custom user aliases
+alias ls='ls --color=auto'
+alias orphans='doas pacman -Rcns $(pacman -Qqdt)'
+alias powersave='doas /usr/local/bin/powerset.sh powersave'
+alias performance='doas /usr/local/bin/powerset.sh performance'
+alias schedutil='doas /usr/local/bin/powerset.sh schedutil'
+alias ondemand='doas /usr/local/bin/powerset.sh ondemand'
+alias poweroff='doas /usr/bin/poweroff'
+alias reboot='doas /usr/bin/reboot'
+alias blank='/usr/local/bin/plasmablank.sh'
+# End of lines representing custom user aliases
