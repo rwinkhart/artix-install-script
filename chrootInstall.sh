@@ -204,6 +204,7 @@ fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gai.conf -o /etc/gai.conf  # configure gai to prefer IPv6
 pacman -S neofetch htop --needed --noconfirm
 rc-update add local default
 
