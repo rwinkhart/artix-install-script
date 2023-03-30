@@ -63,19 +63,10 @@ permit nopass $username as root cmd /usr/bin/reboot
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/doas-completion -o /usr/share/bash-completion/completions/doas
 ln -s /usr/bin/doas /usr/bin/sudo
 
-# shell configuration
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/shell-profile -o /home/"$username"/.profile
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/bashrc -o /home/"$username"/.bashrc
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/zshrc -o /home/"$username"/.zshrc
-chown "$username":users /home/"$username"/{.profile,.bashrc,.zshrc}
-chsh -s /bin/dash "$username"
-ln -sfT dash /usr/bin/sh
-pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
-
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
-pacman -S pacman-contrib --noconfirm
+pacman -Sy pacman-contrib --noconfirm
 mkdir -p /etc/pacman.d/hooks
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean.hook -o /etc/pacman.d/hooks/paccache-clean.hook
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/modemmanager.hook -o /etc/pacman.d/hooks/modemmanager.hook
@@ -84,6 +75,15 @@ if [ "$gpu" == 'NVIDIA' ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia.hook -o /etc/pacman.d/hooks/nvidia.hook
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-lts.hook -o /etc/pacman.d/hooks/nvidia-lts.hook
 fi
+
+# shell configuration
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/shell-profile -o /home/"$username"/.profile
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/bashrc -o /home/"$username"/.bashrc
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/zshrc -o /home/"$username"/.zshrc
+chown "$username":users /home/"$username"/{.profile,.bashrc,.zshrc}
+chsh -s /bin/dash "$username"
+ln -sfT dash /usr/bin/sh
+pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
 
 # installing hardware-specific packages
 if [ "$cpu" == 'AuthenticAMD' ]; then
