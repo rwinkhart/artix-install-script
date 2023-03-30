@@ -1,0 +1,11 @@
+[Appearance]
+ColorScheme=DarkPastels
+
+[General]
+Command=/bin/zsh
+Name=Custom
+Parent=FALLBACK/
+StartInCurrentSessionDir=false
+
+[Scrolling]
+HistorySize=2000
