@@ -66,7 +66,6 @@ ln -s /usr/bin/doas /usr/bin/sudo
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/makepkg.conf -o /etc/makepkg.conf
-pacman -Sy pacman-contrib --noconfirm
 mkdir -p /etc/pacman.d/hooks
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/paccache-clean.hook -o /etc/pacman.d/hooks/paccache-clean.hook
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/modemmanager.hook -o /etc/pacman.d/hooks/modemmanager.hook
@@ -83,7 +82,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 chown "$username":users /home/"$username"/{.profile,.bashrc,.zshrc}
 chsh -s /bin/dash "$username"
 ln -sfT dash /usr/bin/sh
-pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
+pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
 
 # installing hardware-specific packages
 if [ "$cpu" == 'AuthenticAMD' ]; then
