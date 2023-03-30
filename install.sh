@@ -34,6 +34,7 @@ read -r -p "timezone: " timezone
 # stop questions
 
 # start hardware detection
+pacman -Sy bc --noconfirm
 cpu=$(lscpu | grep 'Vendor ID:' | awk 'FNR == 1 {print $3;}')
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
