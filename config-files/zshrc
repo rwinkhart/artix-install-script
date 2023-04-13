@@ -15,6 +15,8 @@ art_cat='%F{214}/\_,_/\
 \ 0 0 /%f'
 art_dog=' %F{222}/___/
 | 6.6 |%f'
+art_bear='%F{172}() ()
+(o.o)%f'
 art_snail=' %F{114}|_/
 /o o\%f'
 art_bunny=' /_/
@@ -23,8 +25,8 @@ art_jellyfish='%F{183}<===>
 //|\\%f'
 art_school='    %F{214}<°))><     %F{222}><(((.>
 %F{114}><(((°>   %F{183}><((((°>%f'
-art_array=("$art_cat" "$art_dog" "$art_snail" "$art_bunny" "$art_jellyfish" "$art_school")
-print -Pr "$art_array[$((RANDOM%6+1))]"
+art_array=("$art_cat" "$art_dog" "$art_bear" "$art_snail" "$art_bunny" "$art_jellyfish" "$art_school")
+print -Pr "$art_array[$((RANDOM%7+1))]"
 PS1='%F{cyan}%n%f@%F{cyan}%m:%f%1~%f%F{cyan}|%#%f '
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
