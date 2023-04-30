@@ -13,7 +13,7 @@ Some major/noteworthy differences from common configurations:
 - ...all of this and more on KDE Plasma Wayland
 
 # Usage
-Upon loading up the official Artix base ISO (tested on weekly base images only), logging in, connecting to the internet, and switching to the root user, run:
+Upon loading up the official Artix OpenRC base ISO (tested on weekly base images only), logging in, connecting to the internet, and switching to the root user, run:
 
 ```
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/install.sh -o install.sh
