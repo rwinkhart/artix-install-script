@@ -205,11 +205,13 @@ else
     echo 'vm.swappiness=0' > /etc/sysctl.d/99-swappiness.conf
 fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
-mkdir -p /home/"$username"/.gnupg
+mkdir -p /home/"$username"/.gnupg /home/"$username"/.config/micro
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gai.conf -o /etc/gai.conf  # configure gai to prefer IPv6
 echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase max virtual memory maps (helps with some Wine games)
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/micro-settings.json -o /home/"$username"/.config/micro/settings.json  # set micro to use spaces in place of tabs
+chmod 755 /home/"$username"/.config /home/"$username"/.config/micro /home/"$username"/.config/micro/settings.json
+chown "$username":users /home/"$username"/.config /home/"$username"/.config/micro /home/"$username"/.config/micro/settings.json
 pacman -S neofetch htop --needed --noconfirm
 rc-update add local default
 
