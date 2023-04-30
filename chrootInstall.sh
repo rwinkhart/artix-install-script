@@ -213,7 +213,6 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 chmod 755 /home/"$username"/.config /home/"$username"/.config/micro /home/"$username"/.config/micro/settings.json
 chown "$username":users /home/"$username"/.config /home/"$username"/.config/micro /home/"$username"/.config/micro/settings.json
 pacman -S neofetch htop --needed --noconfirm
-rc-update add local default
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
