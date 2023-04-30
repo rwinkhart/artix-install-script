@@ -42,6 +42,7 @@ if ! ([ "$gpu" == 'NVIDIA' ] || [ "$gpu" == 'Intel' ]); then
     gpu=AMD
 fi
 ram=$(echo "$(< /proc/meminfo)" | grep 'MemTotal:' | awk '{print $2;}'); ram=$(echo "$ram / 1000000" | bc)
+interfaces=(/sys/class/net/*)
 # stop hardware detection
 
 # start conditional questions
@@ -167,6 +168,12 @@ echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
 # installing base packages
 base_devel='db diffutils gc guile libisl libmpc perl autoconf automake bash dash binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman pacman-contrib patch pkgconf python sed opendoas texinfo which bc udev'
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git micro man-db bash-completion
+
+# applying IPv6 privacy entensions for all interfaces
+echo -e 'net.ipv6.conf.all.use_tempaddr = 2\nnet.ipv6.conf.default.use_tempaddr = 2' > /mnt/etc/sysctl.d/40-ipv6.conf
+for int in "${interfaces[@]}"; do
+      echo "net.ipv6.conf.${int:15}.use_tempaddr = 2" >> /mnt/etc/sysctl.d/40-ipv6.conf
+done
 
 # exporting variables
 mkdir /mnt/tempfiles
