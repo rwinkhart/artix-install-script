@@ -205,6 +205,7 @@ echo -e ""$username"        soft    memlock        64\n"$username"        hard  
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gai.conf -o /etc/gai.conf  # configure gai to prefer IPv6
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/micro-settings.json -o /home/"$username"/.config/micro/settings.json  # set micro to use spaces in place of tabs
 pacman -S neofetch htop --needed --noconfirm
 rc-update add local default
 
