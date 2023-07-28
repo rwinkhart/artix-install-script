@@ -130,7 +130,7 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 ## KDE Plasma
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit micro bluez-openrc --needed --noconfirm
+    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
     mkdir -p /home/"$username"/.local/share/konsole
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
@@ -145,7 +145,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/progr
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
-chown -R root /usr/local/bin /etc/local.d
+chown -R root:root /usr/local/bin /etc/local.d
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
@@ -195,7 +195,7 @@ fi
 pacman -S openssh --needed --noconfirm
 mkdir /home/"$username"/.ssh
 touch /home/"$username"/.ssh/authorized_keys
-chown -R "$username" /home/"$username"/.ssh
+chown -R "$username":users /home/"$username"/.ssh
 chmod 600 /home/"$username"/.ssh/authorized_keys
 
 # misc configuration
@@ -205,14 +205,13 @@ else
     echo 'vm.swappiness=0' > /etc/sysctl.d/99-swappiness.conf
 fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
-mkdir -p /home/"$username"/.gnupg /home/"$username"/.config/micro
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gai.conf -o /etc/gai.conf  # configure gai to prefer IPv6
 echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase max virtual memory maps (helps with some Wine games)
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/micro-settings.json -o /home/"$username"/.config/micro/settings.json  # set micro to use spaces in place of tabs
-chmod 755 /home/"$username"/.config /home/"$username"/.config/micro /home/"$username"/.config/micro/settings.json
-chown "$username":users /home/"$username"/.config /home/"$username"/.config/micro /home/"$username"/.config/micro/settings.json
-pacman -S neofetch htop --needed --noconfirm
+pacman -S neofetch htop vim --needed --noconfirm
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/vimrc -o /home/"$username"/.vimrc
+chown "$username":users /home/"$username"/.vimrc
+chmod 644 /home/"$username"/.vimrc
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
