@@ -13,6 +13,5 @@ alias schedutil='doas /usr/local/bin/powerset.sh schedutil'
 alias ondemand='doas /usr/local/bin/powerset.sh ondemand'
 alias poweroff='doas /usr/bin/poweroff'
 alias reboot='doas /usr/bin/reboot'
-alias blank='/usr/local/bin/plasmablank.sh'
 
 PS1='\[\e[36m\]\u\[\e[0m\]@\[\e[36m\]\h:\[\e[0m\]\W\[\e[36m\]|$\[\e[0m\] '

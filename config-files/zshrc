@@ -6,7 +6,7 @@ unsetopt beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/cuan/.zshrc'
+zstyle :compinstall filename "/home/$USER/.zshrc"
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
@@ -50,5 +50,4 @@ alias schedutil='doas /usr/local/bin/powerset.sh schedutil'
 alias ondemand='doas /usr/local/bin/powerset.sh ondemand'
 alias poweroff='doas /usr/bin/poweroff'
 alias reboot='doas /usr/bin/reboot'
-alias blank='/usr/local/bin/plasmablank.sh'
 # End of lines representing custom user aliases
