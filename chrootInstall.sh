@@ -193,10 +193,18 @@ fi
 
 # ssh configuration
 pacman -S openssh --needed --noconfirm
-mkdir /home/"$username"/.ssh
+mkdir -p /home/"$username"/.ssh
 touch /home/"$username"/.ssh/authorized_keys
 chown -R "$username":users /home/"$username"/.ssh
+chmod 700 /home/"$username"/.ssh
 chmod 600 /home/"$username"/.ssh/authorized_keys
+
+# gpg configuration
+mkdir -p /home/"$username"/.gnupg
+echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
+chown -R "$username":users /home/"$username"/.gnupg
+chmod 700 /home/"$username"/.gnupg
+chmod 600 /home/"$username"/.gnupg/gpg-agent.conf
 
 # misc configuration
 if [ "$swap" -gt 0 ]; then
@@ -205,7 +213,6 @@ else
     echo 'vm.swappiness=0' > /etc/sysctl.d/99-swappiness.conf
 fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
-echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gai.conf -o /etc/gai.conf  # configure gai to prefer IPv6
 echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase max virtual memory maps (helps with some Wine games)
 pacman -S neofetch htop neovim --needed --noconfirm
