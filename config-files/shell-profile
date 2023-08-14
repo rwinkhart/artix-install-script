@@ -15,7 +15,7 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 
-export EDITOR=micro
+export EDITOR=nvim
 export BUILDDIR=/tmp/makepkg
 
 [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && exec dbus-run-session startplasma-wayland

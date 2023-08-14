@@ -61,7 +61,7 @@ permit nopass $username as root cmd /usr/bin/poweroff
 permit nopass $username as root cmd /usr/bin/reboot
 " > /etc/doas.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/doas-completion -o /usr/share/bash-completion/completions/doas
-ln -s /usr/bin/doas /usr/bin/sudo
+ln -s /usr/bin/doas /usr/local/bin/sudo
 
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
@@ -208,10 +208,10 @@ echo -e ""$username"        soft    memlock        64\n"$username"        hard  
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gai.conf -o /etc/gai.conf  # configure gai to prefer IPv6
 echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase max virtual memory maps (helps with some Wine games)
-pacman -S neofetch htop vim --needed --noconfirm
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/vimrc -o /home/"$username"/.vimrc
-chown "$username":users /home/"$username"/.vimrc
-chmod 644 /home/"$username"/.vimrc
+pacman -S neofetch htop neovim --needed --noconfirm
+mkdir -p /etc/xdg/nvim
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/sysinit.vim -o /etc/xdg/nvim/sysinit.vim
+ln -s /usr/bin/nvim /usr/local/bin/vim
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
