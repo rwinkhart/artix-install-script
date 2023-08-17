@@ -35,7 +35,7 @@ bindkey '^[[F' end-of-line
 bindkey '^[[3~' delete-char
 function yakuake_clear() {
     clear
-    print -Pr "$art_array[$((RANDOM%6+1))]"
+    print -Pr "$art_array[$((RANDOM%7+1))]"
     print -Pn $PS1
 }
 zle -N zsh-redraw yakuake_clear
