@@ -35,7 +35,6 @@ read -r -p "timezone: " timezone
 
 # start hardware detection
 pacman -Sy bc --noconfirm
-cpu=$(lscpu | grep 'Vendor ID:' | awk 'FNR == 1 {print $3;}')
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
 if ! ([ "$gpu" == 'NVIDIA' ] || [ "$gpu" == 'Intel' ]); then
@@ -178,7 +177,6 @@ done
 # exporting variables
 mkdir /mnt/tempfiles
 echo "$formfactor" > /mnt/tempfiles/formfactor
-echo "$cpu" > /mnt/tempfiles/cpu
 echo "$threadsminusone" > /mnt/tempfiles/threadsminusone
 echo "$gpu" > /mnt/tempfiles/gpu
 echo "$intel_vaapi_driver" > /mnt/tempfiles/intel_vaapi_driver

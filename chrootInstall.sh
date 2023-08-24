@@ -2,7 +2,6 @@
 
 # Importing Variables
 formfactor="$(< /tempfiles/formfactor)"
-cpu="$(< /tempfiles/cpu)"
 threadsminusone="$(< /tempfiles/threadsminusone)"
 gpu="$(< /tempfiles/gpu)"
 intel_vaapi_driver="$(< /tempfiles/intel_vaapi_driver)"
@@ -84,11 +83,6 @@ ln -sfT dash /usr/bin/sh
 pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
 
 # installing hardware-specific packages
-if [ "$cpu" == 'AuthenticAMD' ]; then
-    pacman -S amd-ucode --noconfirm
-else
-    pacman -S intel-ucode --noconfirm
-fi
 if [ "$gpu" == 'AMD' ]; then
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
 elif [ "$gpu" == 'Intel' ]; then
