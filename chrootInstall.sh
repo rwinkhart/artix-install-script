@@ -60,7 +60,6 @@ permit nopass $username as root cmd /usr/bin/poweroff
 permit nopass $username as root cmd /usr/bin/reboot
 " > /etc/doas.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/doas-completion -o /usr/share/bash-completion/completions/doas
-ln -s /usr/bin/doas /usr/local/bin/sudo
 
 # pacman configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pacman.conf -o /etc/pacman.conf
@@ -208,7 +207,6 @@ echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase 
 pacman -S neofetch htop neovim --needed --noconfirm
 mkdir -p /etc/xdg/nvim
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/sysinit.vim -o /etc/xdg/nvim/sysinit.vim
-ln -s /usr/bin/nvim /usr/local/bin/vim
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
