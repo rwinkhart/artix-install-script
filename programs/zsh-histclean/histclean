@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+hist=()
+
+while IFS= read -r line; do
+    if [[ $line == "./"* || $line == "/"* ]]; then
+        hist+=($line)
+    else
+        which $(echo $line | cut -d " " -f1) > /dev/null
+        [[ $? == 0 ]] && hist+=($line)
+    fi
+done < "$XDG_CACHE_HOME"/zsh-histfile
+
+echo -n "" > "$XDG_CACHE_HOME"/zsh-histfile
+for item in "${hist[@]}"; do
+    echo "$item" >> "$XDG_CACHE_HOME"/zsh-histfile
+done

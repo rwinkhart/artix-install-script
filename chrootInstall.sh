@@ -133,9 +133,9 @@ mkdir /home/"$username"/.config/autostart
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
 echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
-chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /etc/local.d/trim.start
-chown -R root:root /usr/local/bin /etc/local.d
+chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
