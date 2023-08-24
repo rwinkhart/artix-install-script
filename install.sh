@@ -174,21 +174,10 @@ for int in "${interfaces[@]}"; do
       echo "net.ipv6.conf.${int:15}.use_tempaddr = 2" >> /mnt/etc/sysctl.d/40-ipv6.conf
 done
 
-# exporting variables
-mkdir /mnt/tempfiles
-echo "$formfactor" > /mnt/tempfiles/formfactor
-echo "$threadsminusone" > /mnt/tempfiles/threadsminusone
-echo "$gpu" > /mnt/tempfiles/gpu
-echo "$intel_vaapi_driver" > /mnt/tempfiles/intel_vaapi_driver
-echo "$boot" > /mnt/tempfiles/boot
-echo "$disk0" > /mnt/tempfiles/disk
-echo "$username" > /mnt/tempfiles/username
-echo "$userpassword" > /mnt/tempfiles/userpassword
-echo "$rootpassword" > /mnt/tempfiles/rootpassword
-echo "$timezone" > /mnt/tempfiles/timezone
-echo "$swap" > /mnt/tempfiles/swap
+# create array of variables to pass to part 2
+var_export=($formfactor $threadsminusone $gpu $intel_vaapi_driver $boot $disk0 $username $userpassword $rootpassword $timezone $swap)
 
 # download and initiate part 2
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh
 chmod +x /mnt/chrootInstall.sh
-artix-chroot /mnt /chrootInstall.sh
+artix-chroot /mnt /chrootInstall.sh $var_export
