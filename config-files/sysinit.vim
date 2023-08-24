@@ -8,7 +8,7 @@ set number
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType go set noexpandtab
+autocmd FileType go,html,php,css set noexpandtab
 
 " enable visually indented text wrapping
 set wrap
