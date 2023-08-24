@@ -11,8 +11,8 @@ zstyle :compinstall filename "/home/$USER/.zshrc"
 autoload -Uz compinit
 compinit
 PS1='%F{cyan}%n%f@%F{cyan}%m:%f%1~%f%F{cyan}|%#%f '
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 bindkey '^[[3~' delete-char
