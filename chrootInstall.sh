@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 
 # Importing Variables
-formfactor=$1[1]
-threadsminusone=$1[2]
-gpu=$1[3]
-intel_vaapi_driver=$1[4]
-boot=$1[5]
-disk=$1[6]
-username=$1[7]
-userpassword=$1[8]
-rootpassword=$1[9]
-timezone=$1[10]
-swap=$1[11]
+args=("$@")
+formfactor=${args[0]}
+threadsminusone=${args[1]}
+gpu=${args[2]}
+boot=${args[3]}
+disk=${args[4]}
+username=${args[5]}
+userpassword=${args[6]}
+rootpassword=${args[7]}
+timezone=${args[8]}
+swap=${args[9]}
+intel_vaapi_driver=${args[10]}
 
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen

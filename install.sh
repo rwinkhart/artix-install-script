@@ -175,9 +175,9 @@ for int in "${interfaces[@]}"; do
 done
 
 # create array of variables to pass to part 2
-var_export=($formfactor $threadsminusone $gpu $intel_vaapi_driver $boot $disk0 $username $userpassword $rootpassword $timezone $swap)
+var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $rootpassword $timezone $swap $intel_vaapi_driver)
 
 # download and initiate part 2
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh
 chmod +x /mnt/chrootInstall.sh
-artix-chroot /mnt /chrootInstall.sh $var_export
+artix-chroot /mnt /chrootInstall.sh "${var_export[@]}"
