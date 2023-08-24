@@ -1,5 +1,5 @@
 # shell settings (this section impacts shell functionality)
-HISTFILE="$XDG_CACHE_HOME"/zsh_histfile
+HISTFILE="$XDG_CACHE_HOME"/zsh-histfile
 HISTSIZE=2500
 SAVEHIST=2000
 setopt INC_APPEND_HISTORY
