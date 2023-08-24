@@ -9,7 +9,7 @@ Some major/noteworthy differences from common configurations:
 - EXT4 fast_commit mode is enabled by default
 - makepkg is configured for better than stock performance and uses more space-efficient compression
 - dash is used as the system and login shell
-- custom zshrc and bashrc files are included with useful system management aliases
+- zsh (with a custom zshrc) is used aas the defualt KDE (Konsole/Yakuake) shell
 - ...all of this and more on KDE Plasma Wayland
 
 # Usage

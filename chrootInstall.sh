@@ -76,13 +76,9 @@ if [ "$gpu" == 'NVIDIA' ]; then
 fi
 
 # shell configuration
-mkdir -p /home/"$username"/.local/share/zsh
-chmod 755 /home/"$username"/.local/share /home/"$username"/.local/share/zsh
-chown "$username":users /home/"$username"/.local/share /home/"$username"/.local/share/zsh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/shell-profile -o /home/"$username"/.profile
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/bashrc -o /home/"$username"/.bashrc
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/zshrc -o /home/"$username"/.zshrc
-chown "$username":users /home/"$username"/{.profile,.bashrc,.zshrc} /home/"$username"/.local/share/zsh
+chown "$username":users /home/"$username"/{.profile,.zshrc} 
 chsh -s /bin/dash "$username"
 ln -sfT dash /usr/bin/sh
 pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
