@@ -134,7 +134,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/progr
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
-echo -e \#\!/usr/bin/env bash"\nfstrim -Av &" > /etc/local.d/trim.start
+echo -e \#\!/bin/sh"\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
 
 # asus g14 2020 configuration
