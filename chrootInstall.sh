@@ -80,7 +80,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 chown "$username":users /home/"$username"/{.profile,.zshrc} 
 chsh -s /bin/dash "$username"
 ln -sfT dash /usr/bin/sh
-pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting openrc-zsh-completions --noconfirm
+pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting --noconfirm
 
 # installing hardware-specific packages
 if [ "$gpu" == 'AMD' ]; then
