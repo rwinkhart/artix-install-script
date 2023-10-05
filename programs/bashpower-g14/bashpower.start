@@ -7,9 +7,9 @@
 
 # create config directory and set default settings
 mkdir -p /usr/local/bashpower
-if [ ! -f /usr/local/bashpower/governor ] ; then
-    echo powersave > /usr/local/bashpower/governor
-fi
+#if [ ! -f /usr/local/bashpower/governor ] ; then
+#    echo powersave > /usr/local/bashpower/governor
+#fi
 if [ ! -f /usr/local/bashpower/batt_limit ] ; then
     echo 80 > /usr/local/bashpower/batt_limit
 fi
@@ -29,9 +29,9 @@ screen_brightness=$(< /usr/local/bashpower/screen_brightness)
 ## on run:
 
 # set cpu governor
-for CPU in $(seq 0 $(($(nproc) - 1))); do
-    echo $governor > /sys/devices/system/cpu/cpu"$CPU"/cpufreq/scaling_governor
-done
+#for CPU in $(seq 0 $(($(nproc) - 1))); do
+#    echo $governor > /sys/devices/system/cpu/cpu"$CPU"/cpufreq/scaling_governor
+#done
 
 # set keyboard backlight to off
 echo 0 > /sys/class/leds/asus::kbd_backlight/brightness
