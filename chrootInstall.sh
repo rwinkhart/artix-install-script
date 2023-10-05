@@ -103,8 +103,7 @@ fi
 echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
 if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
-    pacman -S powertop acpid-openrc acpilight --needed --noconfirm
-    rc-update add acpid
+    pacman -S powertop --needed --noconfirm
     echo 'SUBSYSTEM=="backlight", ACTION=="add", \
         RUN+="/bin/chgrp classmod /sys/class/backlight/%k/brightness", \
         RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
