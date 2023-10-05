@@ -70,7 +70,6 @@ if [ "$gpu" == 'NVIDIA' ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia.hook -o /etc/pacman.d/hooks/nvidia.hook
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/nvidia-lts.hook -o /etc/pacman.d/hooks/nvidia-lts.hook
 fi
-rankmirrors /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist
 
 # shell configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/shell-profile -o /home/"$username"/.profile
