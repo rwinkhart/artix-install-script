@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated october 04, 2023 \(rev. C\)
+echo last updated october 04, 2023 \(rev. D\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -23,8 +23,6 @@ echo
 read -rp "username: " username
 
 read -rp "$username password: " userpassword
-
-read -rp "root password: " rootpassword
 
 read -rp "hostname: " hostname
 
@@ -175,7 +173,7 @@ for int in "${interfaces[@]}"; do
 done
 
 # create array of variables to pass to part 2
-var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $rootpassword $timezone $swap $intel_vaapi_driver)
+var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $timezone $swap $intel_vaapi_driver)
 
 # download and initiate part 2
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh

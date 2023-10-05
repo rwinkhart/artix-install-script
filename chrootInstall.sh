@@ -9,10 +9,9 @@ boot=${args[3]}
 disk=${args[4]}
 username=${args[5]}
 userpassword=${args[6]}
-rootpassword=${args[7]}
-timezone=${args[8]}
-swap=${args[9]}
-intel_vaapi_driver=${args[10]}
+timezone=${args[7]}
+swap=${args[8]}
+intel_vaapi_driver=${args[9]}
 
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
@@ -46,9 +45,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
 groupadd classmod
-echo "$rootpassword
-$rootpassword
-" | passwd
 useradd -m -g users -G classmod "$username"
 echo "$userpassword
 $userpassword
