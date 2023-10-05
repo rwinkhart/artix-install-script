@@ -182,6 +182,7 @@ echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase 
 pacman -S neofetch htop neovim --needed --noconfirm
 mkdir -p /etc/xdg/nvim
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/sysinit.vim -o /etc/xdg/nvim/sysinit.vim
+rc-update add local boot
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
