@@ -146,34 +146,9 @@ if [ "$formfactor" == 1 ]; then
     echo 'evdev:input:b0003v0B05p1866*
       KEYBOARD_KEY_c00b6=home # Fn+F2
       KEYBOARD_KEY_c00b5=end   # Fn+F4
-      KEYBOARD_KEY_ff31007c=f20 # x11 mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
+      KEYBOARD_KEY_ff31007c=f20 # mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
     udevadm control --reload-rules
     udevadm trigger --sysname-match="event*"
-    # xbindkeys config
-    echo '#ScreenBrightUp
-    "xbacklight -inc 10"
-        m:0x0 + c:210
-        XF86Launch3
-    #ScreenBrightDown
-    "xbacklight -dec 10"
-        m:0x0 + c:157
-        XF86Launch2
-    #G14KeyBrightUp
-    "xbacklight -ctrl asus::kbd_backlight -inc 30"
-        m:0x0 + c:238
-        XF86KbdBrightnessUp
-    #G14KeyBrightDown
-    "xbacklight -ctrl asus::kbd_backlight -dec 30"
-        m:0x0 + c:237
-        XF86KbdBrightnessDown
-    #G14IntegratedGPU
-    "/usr/bin/NVIDIA-FCKR integrated"
-        m:0x0 + c:232
-        XF86MonBrightnessDown
-    #G14HybridGPU
-    "/usr/bin/NVIDIA-FCKR hybrid"
-        m:0x0 + c:233
-        XF86MonBrightnessUp' > /home/"$username"/.xbindkeysrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/NVIDIA-FCKR/NVIDIA-FCKR -o /usr/local/bin/NVIDIA-FCKR
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call --needed --noconfirm
