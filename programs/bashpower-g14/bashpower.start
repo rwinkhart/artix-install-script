@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # this bashpower script is intended for ASUS gaming laptops, 2020-2022
-# it has been tested on the 2020 Zephyrus G14 (GA401IV)
+# it has only been tested on the 2020 Zephyrus G14 (GA401IV)
 # kernel 5.17+ is required for full functionality
-# place in /etc/local.d and use in conjunction with OpenRC for best results
+# place in /etc/local.d/ and use in conjunction with OpenRC for best results
+# be sure to add the "local" service to the default runlevel for this script to function 
 
 # create config directory and set default settings
 mkdir -p /usr/local/bashpower
@@ -15,11 +16,15 @@ fi
 if [ ! -f /usr/local/bashpower/fan_curve ] ; then
     echo '20:0 30:0 40:0 50:30 60:50 70:70 85:100 90:100' > /usr/local/bashpower/fan_curve
 fi
+if [ ! -f /usr/local/bashpower/screen_brightness ] ; then
+    echo 50 > /usr/local/bashpower/screen_brightness
+fi
 
 # import user settings
 governor=$(< /usr/local/bashpower/governor)
 batt_limit=$(< /usr/local/bashpower/batt_limit)
 fan_curve=$(< /usr/local/bashpower/fan_curve)
+screen_brightness=$(< /usr/local/bashpower/screen_brightness)
 
 ## on run:
 
@@ -30,6 +35,9 @@ done
 
 # set keyboard backlight to off
 echo 0 > /sys/class/leds/asus::kbd_backlight/brightness
+
+# set screen brightness
+echo $screen_brightness > /sys/class/backlight/amdgpu_bl0/brightness
 
 # set battery charge limit
 echo "$batt_limit" > /sys/class/power_supply/BAT0/charge_control_end_threshold
