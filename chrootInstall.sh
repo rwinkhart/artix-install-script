@@ -185,6 +185,7 @@ pacman -S neofetch htop neovim --needed --noconfirm
 mkdir -p /etc/xdg/nvim
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/sysinit.vim -o /etc/xdg/nvim/sysinit.vim
 rc-update add local boot
+rc-update del local default
 
 # finishing up + cleaning
 rm -rf /chrootInstall.sh /tempfiles
