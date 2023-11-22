@@ -132,6 +132,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/progr
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
 echo -e \#\!/bin/sh"\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
+chown -R "$username":users /home/"$username"/.config/autostart
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
