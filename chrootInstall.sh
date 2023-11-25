@@ -45,7 +45,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
 groupadd classmod
-useradd -m -g users -G classmod "$username"
+useradd -m -g humans -G classmod "$username"
 echo "$userpassword
 $userpassword
 " | passwd "$username"
@@ -74,7 +74,7 @@ fi
 # shell configuration
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/shell-profile -o /home/"$username"/.profile
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/zshrc -o /home/"$username"/.zshrc
-chown "$username":users /home/"$username"/{.profile,.zshrc} 
+chown "$username":humans /home/"$username"/{.profile,.zshrc} 
 chsh -s /bin/dash "$username"
 ln -sfT dash /usr/bin/sh
 pacman -Sy zsh zsh-autosuggestions zsh-syntax-highlighting --noconfirm
@@ -110,8 +110,8 @@ fi
 # set home directory permissions
 mkdir -p /home/"$username"/{.config,.local/share}
 chmod 700 /home/"$username"
-chown "$username":users /home/"$username"/{.config,.local}
-chown "$username":users /home/"$username"/.local/share
+chown "$username":humans /home/"$username"/{.config,.local}
+chown "$username":humans /home/"$username"/.local/share
 chmod 755 /home/"$username"/{.config,.local/share}
 
 ## KDE Plasma
@@ -122,7 +122,7 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
     chmod 755 /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.local/share/konsole/Custom.profile
-    chown "$username":users /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.local/share/konsole/Custom.profile
+    chown "$username":humans /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.local/share/konsole/Custom.profile
 fi
 
 mkdir /home/"$username"/.config/autostart
@@ -132,7 +132,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/progr
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
 echo -e \#\!/bin/sh"\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
-chown -R "$username":users /home/"$username"/.config/autostart
+chown -R "$username":humans /home/"$username"/.config/autostart
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
@@ -158,14 +158,14 @@ fi
 pacman -S openssh --needed --noconfirm
 mkdir -p /home/"$username"/.ssh
 touch /home/"$username"/.ssh/authorized_keys
-chown -R "$username":users /home/"$username"/.ssh
+chown -R "$username":humans /home/"$username"/.ssh
 chmod 700 /home/"$username"/.ssh
 chmod 600 /home/"$username"/.ssh/authorized_keys
 
 # gpg configuration
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
-chown -R "$username":users /home/"$username"/.gnupg
+chown -R "$username":humans /home/"$username"/.gnupg
 chmod 700 /home/"$username"/.gnupg
 chmod 600 /home/"$username"/.gnupg/gpg-agent.conf
 
