@@ -44,8 +44,7 @@ fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
-groupadd classmod
-useradd -m -g humans -G classmod "$username"
+useradd -m -g humans -G uucp "$username"
 echo "$userpassword
 $userpassword
 " | passwd "$username"
@@ -101,10 +100,6 @@ echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
 if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
     pacman -S powertop --needed --noconfirm
-    echo 'SUBSYSTEM=="backlight", ACTION=="add", \
-        RUN+="/bin/chgrp classmod /sys/class/backlight/%k/brightness", \
-        RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
-    ' > /etc/udev/rules.d/screenbacklight.rules
 fi
 
 # set home directory permissions
@@ -138,9 +133,6 @@ chown -R "$username":humans /home/"$username"/.config/autostart
 if [ "$formfactor" == 1 ]; then
     echo 'options snd_hda_intel power_save=1' > /etc/modprobe.d/audio_powersave.conf
     echo 'vm.dirty_writeback_centisecs = 6000' > /etc/sysctl.d/dirty.conf
-    echo 'RUN+="/bin/chgrp classmod /sys/class/leds/asus::kbd_backlight/brightness"
-    RUN+="/bin/chmod g+w /sys/class/leds/asus::kbd_backlight/brightness"
-    ' > /etc/udev/rules.d/asuskbdbacklight.rules
     echo 'evdev:input:b0003v0B05p1866*
       KEYBOARD_KEY_c00b6=home # Fn+F2
       KEYBOARD_KEY_c00b5=end   # Fn+F4
