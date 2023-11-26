@@ -133,12 +133,6 @@ chown -R "$username":users /home/"$username"/.config/autostart
 if [ "$formfactor" == 1 ]; then
     echo 'options snd_hda_intel power_save=1' > /etc/modprobe.d/audio_powersave.conf
     echo 'vm.dirty_writeback_centisecs = 6000' > /etc/sysctl.d/dirty.conf
-    echo 'evdev:input:b0003v0B05p1866*
-      KEYBOARD_KEY_c00b6=home # Fn+F2
-      KEYBOARD_KEY_c00b5=end   # Fn+F4
-      KEYBOARD_KEY_ff31007c=f20 # mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
-    udevadm control --reload-rules
-    udevadm trigger --sysname-match="event*"
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/NVIDIA-FCKR/NVIDIA-FCKR -o /usr/local/bin/NVIDIA-FCKR
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call --needed --noconfirm
