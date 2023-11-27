@@ -122,7 +122,7 @@ fi
 
 mkdir /home/"$username"/.config/autostart
 echo -e "[Desktop Entry]\nCategories=Qt;KDE;System;TerminalEmulator;\nComment=A drop-down terminal emulator based on KDE Konsole technology.\nDBusActivatable=true\nExec=yakuake\nGenericName=Drop-down Terminal\nIcon=yakuake\nName=Yakuake\nTerminal=false\nType=Application\nX-DBUS-ServiceName=org.kde.yakuake\nX-DBUS-StartupType=Unique\nX-KDE-StartupNotify=false" > /home/"$username"/.config/autostart/org.kde.yakuake.desktop
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
+echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
