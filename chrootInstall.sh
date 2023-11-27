@@ -123,13 +123,15 @@ fi
 mkdir /home/"$username"/.config/autostart
 echo -e "[Desktop Entry]\nCategories=Qt;KDE;System;TerminalEmulator;\nComment=A drop-down terminal emulator based on KDE Konsole technology.\nDBusActivatable=true\nExec=yakuake\nGenericName=Drop-down Terminal\nIcon=yakuake\nName=Yakuake\nTerminal=false\nType=Application\nX-DBUS-ServiceName=org.kde.yakuake\nX-DBUS-StartupType=Unique\nX-KDE-StartupNotify=false" > /home/"$username"/.config/autostart/org.kde.yakuake.desktop
 echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
+echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
+echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
 echo -e \#\!/bin/sh"\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
-chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
+chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
