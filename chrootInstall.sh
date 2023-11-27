@@ -123,12 +123,13 @@ fi
 mkdir /home/"$username"/.config/autostart
 echo -e "[Desktop Entry]\nCategories=Qt;KDE;System;TerminalEmulator;\nComment=A drop-down terminal emulator based on KDE Konsole technology.\nDBusActivatable=true\nExec=yakuake\nGenericName=Drop-down Terminal\nIcon=yakuake\nName=Yakuake\nTerminal=false\nType=Application\nX-DBUS-ServiceName=org.kde.yakuake\nX-DBUS-StartupType=Unique\nX-KDE-StartupNotify=false" > /home/"$username"/.config/autostart/org.kde.yakuake.desktop
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire.desktop -o /home/"$username"/.config/autostart/pipewire.desktop
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
 echo -e \#\!/bin/sh"\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
-chown -R "$username":users /home/"$username"/.config/autostart
+chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
