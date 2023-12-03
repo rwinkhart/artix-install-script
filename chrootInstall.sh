@@ -44,7 +44,8 @@ fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
-useradd -m -g users -G uucp "$username"
+groupadd libvirt
+useradd -m -g users -G uucp,libvirt "$username"
 echo "$userpassword
 $userpassword
 " | passwd "$username"
