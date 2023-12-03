@@ -16,7 +16,7 @@ intel_vaapi_driver=${args[9]}
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
-ln -s /usr/share/zoneinfo/America/"$timezone" /etc/localtime
+ln -s /usr/share/zoneinfo/"$timezone" /etc/localtime
 locale-gen
 hwclock --systohc --utc
 

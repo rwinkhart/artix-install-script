@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated december 03, 2023 \(rev. B\)
+echo last updated december 03, 2023 \(rev. C\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -28,8 +28,7 @@ read -rp "$username password: " userpassword
 
 read -rp "hostname: " hostname
 
-echo -e '\namerica:'&&ls /usr/share/zoneinfo/America
-echo -e 'e.g. "New_York" or "Aruba"\n'
+echo -e '\ne.g. "EST" or "UTC"'
 read -r -p "timezone: " timezone
 # stop questions
 
