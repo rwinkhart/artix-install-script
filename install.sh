@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated december 03, 2023 \(rev. A\)
+echo last updated december 03, 2023 \(rev. B\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -13,13 +13,15 @@ read -n 1 -s -r -p 'Press any key to continue'
 echo -e '\nspecial devices:\n1. asus zephyrus g14 (2020)\ngeneric:\n2. laptop\n3. desktop\n4. server\n'
 read -n 1 -r -p "formfactor: " formfactor
 
+echo -e "\n"
 fdisk -l
+echo
 read -rp "disk: " disk
 
 read -rp "swap (in GB): " swap
 
 read -n 1 -rp "clean install? (y/N) " wipe
-echo
+
 read -rp "username: " username
 
 read -rp "$username password: " userpassword
