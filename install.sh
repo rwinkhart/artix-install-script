@@ -21,7 +21,7 @@ read -rp "disk: " disk
 read -rp "swap (in GB): " swap
 
 read -n 1 -rp "clean install? (y/N) " wipe
-
+echo
 read -rp "username: " username
 
 read -rp "$username password: " userpassword
