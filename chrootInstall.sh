@@ -45,16 +45,16 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # account setup
 groupadd libvirt
-useradd -m -g users -G uucp,libvirt "$username"
+useradd -m -g users -G wheel,uucp,libvirt "$username"
 echo "$userpassword
 $userpassword
 " | passwd "$username"
 
 # opendoas configuration
-echo "permit persist keepenv $username as root
-permit nopass $username as root cmd /usr/local/bin/powerset.sh
-permit nopass $username as root cmd /usr/bin/poweroff
-permit nopass $username as root cmd /usr/bin/reboot
+echo "permit persist keepenv :wheel as root
+permit nopass :wheel as root cmd /usr/local/bin/powerset.sh
+permit nopass :wheel as root cmd /usr/bin/poweroff
+permit nopass :wheel as root cmd /usr/bin/reboot
 " > /etc/doas.conf
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/doas-completion -o /usr/share/bash-completion/completions/doas
 ln -s /usr/bin/doas /usr/local/bin/sudo
