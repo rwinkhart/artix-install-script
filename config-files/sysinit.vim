@@ -4,6 +4,12 @@ set fileencoding=utf-8
 " show line numbers
 set number
 
+" set keybinds (home/end)
+noremap <C-a> <Home>
+imap <C-a> <Home>
+noremap <C-e> <End>
+imap <C-e> <End>
+
 " expand all tabs and indents to 4 spaces
 set tabstop=4
 set shiftwidth=4
