@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated december 07, 2023 \(rev. C\)
+echo last updated december 07, 2023 \(rev. D\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -164,7 +164,7 @@ echo "$hostname" > /mnt/etc/hostname
 echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
 
 # installing base packages
-base_devel='db diffutils gc guile libisl libmpc perl autoconf automake bash dash binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman pacman-contrib patch pkgconf python sed opendoas texinfo which bc udev'
+base_devel='db diffutils gc guile libisl libmpc perl autoconf automake bash dash binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman pacman-contrib patch pkgconf python sed opendoas texinfo which bc udev ntp'
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git man-db bash-completion
 
 # applying IPv6 privacy entensions for all interfaces

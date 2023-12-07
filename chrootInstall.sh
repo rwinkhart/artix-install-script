@@ -19,6 +19,8 @@ echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 ln -s /usr/share/zoneinfo/"$timezone" /etc/localtime
 locale-gen
 hwclock --systohc --utc
+echo -e "#!/bin/sh\nntpdate -b pool.ntp.org &" > /etc/local.d/ntp.start
+chmod 755 /etc/local.d/ntp.start
 
 # networkmanager configuration 
 pacman -S networkmanager-openrc --noconfirm
@@ -132,7 +134,7 @@ curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/confi
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
-echo -e \#\!/bin/sh"\nfstrim -Av &" > /etc/local.d/trim.start
+echo -e "#!/bin/sh\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
 chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc
 
