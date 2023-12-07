@@ -1,16 +1,14 @@
 # Overview
-An Artix Linux installation script that can be used to install and configure Artix Linux with my preferred setup.
+An Artix Linux (OpenRC) installation script that can be used to install and configure Artix Linux (OpenRC) with my preferred setup.
 
 Some major/noteworthy differences from common configurations:
 
 - opendoas is used in place of sudo
-- pipewire is used in place of pulseaudio
-- OpenRC is the chosen init system
 - EXT4 fast_commit mode is enabled by default
 - makepkg is configured for better than stock performance and uses more space-efficient compression
 - dash is used as the system and login shell
-- zsh (with a custom zshrc) is used aas the defualt KDE (Konsole/Yakuake) shell
-- ...all of this and more on KDE Plasma Wayland
+- zsh (with a custom zshrc) is used as the defualt KDE (Konsole/Yakuake) shell
+- Plasma Wayland is configured for speed and security by default (disabled Klipper, Baloo, session restore, etc.)
 
 # Usage
 Upon loading up the official Artix OpenRC base ISO (tested on weekly base images only), logging in, connecting to the internet, and switching to the root user, run:
@@ -30,4 +28,4 @@ Generic:
 
 Special:
 
-- ASUS Zephyrus G14 (2020)
+- ASUS Zephyrus G14 (2020) (bugged - cannot boot current Artix ISO images - can install from 2022-01-23 ISO)
