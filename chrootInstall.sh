@@ -51,7 +51,7 @@ $userpassword
 " | passwd "$username"
 
 # opendoas configuration
-echo "permit persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel as root
+echo "permit persist keepenv :wheel as root
 permit nopass :wheel as root cmd /usr/local/bin/powerset.sh
 permit nopass :wheel as root cmd /usr/bin/poweroff
 permit nopass :wheel as root cmd /usr/bin/reboot
