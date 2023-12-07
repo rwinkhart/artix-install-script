@@ -99,6 +99,7 @@ fi
 # disable kernel watchdog
 echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
+# install powertop on laptops
 if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
     pacman -S powertop --needed --noconfirm
 fi

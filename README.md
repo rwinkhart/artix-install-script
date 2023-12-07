@@ -24,7 +24,7 @@ After running the script, it will ask you some questions about your desired conf
 # Supported Devices
 Generic:
 
-- Most x86_64 desktops, laptops, and servers
+- Most x86_64 desktops and laptops
 
 Special:
 
