@@ -5,7 +5,7 @@ wheel:Vertical;NoModifier=org.kde.switchdesktop
 [ActionPlugins][1]
 RightButton;NoModifier=org.kde.contextmenu
 
-[Containments][1]
+[Containments][19]
 formfactor=0
 immutability=1
 lastScreen=0
@@ -13,12 +13,10 @@ location=0
 plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
-[Containments][1][General]
+[Containments][19][General]
 ToolBoxButtonState=topcenter
-ToolBoxButtonX=124
 
 [Containments][2]
-activityId=
 formfactor=2
 immutability=1
 lastScreen=0
@@ -30,29 +28,12 @@ wallpaperplugin=org.kde.image
 immutability=1
 plugin=org.kde.plasma.digitalclock
 
-[Containments][2][Applets][18]
+[Containments][2][Applets][17][Configuration]
+PreloadWeight=55
+
+[Containments][2][Applets][22]
 immutability=1
-plugin=org.kde.plasma.showdesktop
-
-[Containments][2][Applets][3]
-immutability=1
-plugin=org.kde.plasma.kickoff
-
-[Containments][2][Applets][3][Configuration]
-PreloadWeight=100
-
-[Containments][2][Applets][3][Configuration][General]
-favoritesPortedToKAstats=true
-
-[Containments][2][Applets][3][Configuration][Shortcuts]
-global=Alt+F1
-
-[Containments][2][Applets][3][Shortcuts]
-global=Alt+F1
-
-[Containments][2][Applets][4]
-immutability=1
-plugin=org.kde.plasma.pager
+plugin=org.kde.plasma.minimizeall
 
 [Containments][2][Applets][5]
 immutability=1
@@ -70,16 +51,15 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][2][Applets][7][Configuration]
-PreloadWeight=60
+PreloadWeight=70
 SystrayContainmentId=8
 
 [Containments][2][ConfigDialog]
 
 [Containments][2][General]
-AppletOrder=3;4;5;6;7;17;18
+AppletOrder=5;6;7;17;22
 
 [Containments][8]
-activityId=
 formfactor=2
 immutability=1
 lastScreen=0
@@ -93,6 +73,9 @@ PreloadWeight=42
 [Containments][8][Applets][11]
 immutability=1
 plugin=org.kde.plasma.volume
+
+[Containments][8][Applets][11][Configuration]
+PreloadWeight=55
 
 [Containments][8][Applets][11][Configuration][General]
 migrated=true
@@ -123,6 +106,9 @@ plugin=org.kde.plasma.nightcolorcontrol
 [Containments][8][Applets][20]
 immutability=1
 plugin=org.kde.plasma.battery
+
+[Containments][8][Applets][20][Configuration]
+PreloadWeight=55
 
 [Containments][8][Applets][21]
 immutability=1
