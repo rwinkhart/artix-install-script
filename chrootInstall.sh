@@ -120,8 +120,8 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     mkdir -p /home/"$username"/.local/share/konsole
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
-    chmod 755 /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.local/share/konsole/Custom.profile
-    chown "$username":users /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.local/share/konsole/Custom.profile
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
+    chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole
 fi
 
 mkdir /home/"$username"/.config/autostart
