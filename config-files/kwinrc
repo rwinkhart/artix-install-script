@@ -1,6 +1,9 @@
 [Compositing]
 LatencyPolicy=ExtremelyLow
 
+[Effect-kwin4_effect_scale]
+Duration=70
+
 [ModifierOnlyShortcuts]
 Meta=org.kde.krunner,/App,,toggleDisplay
 
