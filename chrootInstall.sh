@@ -12,6 +12,8 @@ userpassword=${args[6]}
 timezone=${args[7]}
 swap=${args[8]}
 intel_vaapi_driver=${args[9]}
+res_x=${args[10]}
+res_y_half=${args[11]}
 
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
@@ -114,28 +116,30 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 ## KDE Plasma
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager yakuake ark kate bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit bluez-openrc --needed --noconfirm
+    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager ark kate bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit bluez-openrc --needed --noconfirm
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
     mkdir -p /home/"$username"/.local/share/konsole
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
-    chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
+    echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
+    echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
+    echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
+    echo -e "[1]\nDescription=konquake\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=3840,1080\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=$res_x,$res_y_half\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
+    chmod 755 /usr/local/bin/konquake
+    chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc
 fi
 
 mkdir /home/"$username"/.config/autostart
-echo -e "[Desktop Entry]\nCategories=Qt;KDE;System;TerminalEmulator;\nComment=A drop-down terminal emulator based on KDE Konsole technology.\nDBusActivatable=true\nExec=yakuake\nGenericName=Drop-down Terminal\nIcon=yakuake\nName=Yakuake\nTerminal=false\nType=Application\nX-DBUS-ServiceName=org.kde.yakuake\nX-DBUS-StartupType=Unique\nX-KDE-StartupNotify=false" > /home/"$username"/.config/autostart/org.kde.yakuake.desktop
 echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
-echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
-echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
-echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
 echo -e "#!/bin/sh\nfstrim -Av &" > /etc/local.d/trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
-chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc
+chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then

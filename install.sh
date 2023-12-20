@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated december 07, 2023 \(rev. H\)
+echo last updated december 19, 2023 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -35,12 +35,20 @@ read -r -p "timezone: " timezone
 # start hardware detection
 pacman -Sy bc --noconfirm
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
+
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
 if ! ([ "$gpu" == 'NVIDIA' ] || [ "$gpu" == 'Intel' ]); then
     gpu=AMD
 fi
+
 ram=$(echo "$(< /proc/meminfo)" | grep 'MemTotal:' | awk '{print $2;}'); ram=$(echo "$ram / 1000000" | bc)
+
 interfaces=(/sys/class/net/*)
+
+res_detect=$(</sys/class/graphics/fb0/modes)
+res_detect="${res_detect:2:${#res_detect}-5}"
+res_x=$(printf "$res_detect" | cut -d 'x' -f1)
+res_y_half=$(echo "$(echo "$res_detect" | cut -d 'x' -f2) / 2" | bc)
 # stop hardware detection
 
 # start conditional questions
@@ -174,7 +182,7 @@ for int in "${interfaces[@]}"; do
 done
 
 # create array of variables to pass to part 2
-var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $timezone $swap $intel_vaapi_driver)
+var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $timezone $swap $intel_vaapi_driver $res_x $res_y_half)
 
 # download and initiate part 2
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh
