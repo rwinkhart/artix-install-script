@@ -127,7 +127,7 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
     echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
-    echo -e "[1]\nDescription=konquake\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=3840,1080\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=$res_x,$res_y_half\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
+    echo -e "[1]\nDescription=konquake\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
     chmod 755 /usr/local/bin/konquake
     chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc
 fi
