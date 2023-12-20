@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # WAYLAND ENV
-export MOZ_ENABLE_WAYLAND=1
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 export WAYLAND_PROTOCOLS_DATADIR="/usr/share/wayland-protocols"
 
