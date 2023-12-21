@@ -123,13 +123,14 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kglobalshortcutsrc -o /home/"$username"/.config/kglobalshortcutsrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
     echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
     echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
     echo -e "[1]\nDescription=konquake\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
     chmod 755 /usr/local/bin/konquake
-    chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc
+    chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc
 fi
 
 mkdir /home/"$username"/.config/autostart

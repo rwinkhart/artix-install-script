@@ -1,0 +1,3 @@
+[konquake.desktop]
+_k_friendly_name=konquake
+_launch=F12,none,/usr/local/bin/konquake
