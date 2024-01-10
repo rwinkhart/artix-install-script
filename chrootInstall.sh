@@ -20,8 +20,7 @@ echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 ln -s /usr/share/zoneinfo/"$timezone" /etc/localtime
 locale-gen
-hwclock --systohc --utc
-echo -e "#!/bin/sh\nntpdate -b pool.ntp.org &" > /etc/local.d/ntp.start
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/ntp.start -o /etc/local.d/ntp.start
 chmod 755 /etc/local.d/ntp.start
 
 # networkmanager configuration 
