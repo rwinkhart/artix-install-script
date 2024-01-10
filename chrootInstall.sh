@@ -22,6 +22,7 @@ ln -s /usr/share/zoneinfo/"$timezone" /etc/localtime
 locale-gen
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/ntp.start -o /etc/local.d/ntp.start
 chmod 755 /etc/local.d/ntp.start
+touch /etc/local.d/.ntpsync
 
 # networkmanager configuration 
 pacman -S networkmanager-openrc --noconfirm
