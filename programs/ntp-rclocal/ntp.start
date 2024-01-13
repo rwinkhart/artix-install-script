@@ -1,5 +1,5 @@
 #!/bin/sh
-old_timestamp="$(</etc/local.d/.ntpsync)"
+old_timestamp="$(cat /etc/local.d/.ntpsync)"
 new_timestamp="$(date +%s)"
 if [ "$((new_timestamp-old_timestamp))" -gt 604800 ]; then
     ntpdate -b pool.ntp.org
