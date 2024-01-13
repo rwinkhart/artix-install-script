@@ -3,13 +3,13 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s artix install script
-echo last updated january 10, 2024 \(rev. B\)
+echo last updated january 13, 2024 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
 read -n 1 -s -r -p 'Press any key to continue'
 
-# start questions
+# start simple questions
 echo -e '\nspecial devices:\n1. asus zephyrus g14 (2020)\ngeneric:\n2. laptop\n3. desktop\n4. headless\n'
 read -n 1 -r -p "formfactor: " formfactor
 
@@ -27,10 +27,58 @@ read -rp "username: " username
 read -rp "$username password: " userpassword
 
 read -rp "hostname: " hostname
+# end simple questions
 
-echo -e '\ne.g. "EST" or "UTC"'
-read -r -p "timezone: " timezone
-# stop questions
+# start timezone configuration
+zroot=/usr/share/zoneinfo
+
+show_tz_list() {
+    echo
+
+    local i z= list=
+    local path="$zroot/$1"
+    [ -d "$path" ] || return 1
+
+    for i in $(find $path/ -maxdepth 1); do
+        case $i in
+        *.tab|*/) continue;;
+        esac
+        if [ -d "$i" ]; then
+            z="$z ${i##*/}/"
+        else
+            z="$z ${i##*/}"
+        fi
+    done
+    ( cd $path && ls --color=never -Cd $z )
+}
+
+while true; do
+    show_tz_list
+    echo
+    read -rp "timezone: " timezone
+    case "$timezone" in
+        none|abort) break;;
+        "") continue;;
+        "?") show_tz_list; continue;;
+    esac
+
+    while [ -d "$zroot/$timezone" ]; do
+        show_tz_list "$timezone"
+        echo
+        read -rp "$timezone subset: " zone
+        case "$zone" in
+            "?") show_tz_list "$timezone"; continue;;
+        esac
+        timezone="$timezone/$zone"
+    done
+
+    if [ -f "$zroot/$timezone" ]; then
+        timezone="$zroot/$timezone"
+        break
+    fi
+    echo "'$timezone' is not a valid timezone on this system"
+done
+# end timezone configuration
 
 # start hardware detection
 pacman -Sy bc --noconfirm
