@@ -18,7 +18,7 @@ res_y_half=${args[11]}
 # configuring locale and clock Settings
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
-ln -s /usr/share/zoneinfo/"$timezone" /etc/localtime
+ln -s "$timezone" /etc/localtime
 locale-gen
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/ntp.start -o /etc/local.d/ntp.start
 chmod 755 /etc/local.d/ntp.start
