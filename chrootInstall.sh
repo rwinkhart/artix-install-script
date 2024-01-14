@@ -30,10 +30,13 @@ rc-update add NetworkManager
 
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
+echo -e "[Trigger]\nOperation=Install\nOperation=Upgrade\nType=Package\nTarget=grub\n\n[Action]\nDescription=Re-install grub after package upgrade.\nWhen=PostTransaction\nNeedsTargets" > /etc/pacman.d/hooks/grub.hook
 if [ "$boot" == 1 ]; then
+    echo "Exec=/bin/sh -c 'grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck && grub-mkconfig -o /boot/grub/grub.cfg'" >> /etc/pacman.d/hooks/grub.hook
     grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck
 fi
 if [ "$boot" == 2 ]; then
+    echo "Exec=/bin/sh -c 'grub-install --target=i386-pc "$disk" && grub-mkconfig -o /boot/grub/grub.cfg'" >> /etc/pacman.d/hooks/grub.hook
     grub-install --target=i386-pc "$disk"
 fi
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
