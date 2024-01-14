@@ -16,6 +16,9 @@ set shiftwidth=4
 set expandtab
 autocmd FileType go,html,php,css set noexpandtab
 
+" set default clipboard register to system clipboard
+set clipboard=unnamedplus
+
 " enable visually indented text wrapping
 set wrap
 set breakindent
