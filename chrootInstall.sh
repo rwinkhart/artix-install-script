@@ -108,6 +108,8 @@ echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 # install powertop on laptops
 if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
     pacman -S powertop --needed --noconfirm
+    echo -e "#!/bin/sh\npowertop --auto-tune &" > /etc/local.d/powertop.start
+    chmod 755 /etc/local.d/powertop.start
 fi
 
 # set home directory permissions
