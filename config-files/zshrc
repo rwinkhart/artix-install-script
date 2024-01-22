@@ -44,6 +44,7 @@ bindkey "^L" zsh-redraw
 
 # aliases
 alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 alias orphans='doas pacman -Rcns $(pacman -Qqdt)'
 alias powersave='doas /usr/local/bin/powerset.sh powersave'
 alias performance='doas /usr/local/bin/powerset.sh performance'
