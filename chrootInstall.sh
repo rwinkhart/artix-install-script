@@ -121,7 +121,7 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 ## KDE Plasma
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras kwalletmanager ark kate konsole bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit bluez-openrc --needed --noconfirm
+    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols xdg-desktop-portal-kde kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras kwalletmanager ark kate konsole bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols polkit bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
     mkdir -p /home/"$username"/.local/share/konsole
