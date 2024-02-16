@@ -26,11 +26,11 @@ ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300"
 ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"' > /lib/udev/rules.d/50-NVIDIA-FCKR.rules
 
     # disable GPU via acpi_call on next boot
-    echo -e '#!/usr/bin/env bash\necho '"'\_SB.PCI0.GPP0.PG00._OFF'"' > /proc/acpi/call' > /etc/local.d/NVIDIA-FCKR.start
-    chmod +x /etc/local.d/NVIDIA-FCKR.start
+    echo -e '#!/usr/bin/env bash\necho '"'\_SB.PCI0.GPP0.PG00._OFF'"' > /proc/acpi/call' > /etc/local.d/10-NVIDIA-FCKR.start
+    chmod +x /etc/local.d/10-NVIDIA-FCKR.start
     echo 'Following the next reboot, only the integrated GPU will be used.'
 elif [ "$1" == 'hybrid' ]; then
-    rm -rf /etc/modprobe.d/NVIDIA-FCKR.conf /lib/udev/rules.d/50-NVIDIA-FCKR.rules /etc/local.d/NVIDIA-FCKR.start
+    rm -rf /etc/modprobe.d/NVIDIA-FCKR.conf /lib/udev/rules.d/50-NVIDIA-FCKR.rules /etc/local.d/10-NVIDIA-FCKR.start
     echo 'Following the next reboot, both GPUs will be enabled.'
 else
     echo -e "invalid argument: $1\nusage: NVIDIA-FCKR [integrated/hybrid]"

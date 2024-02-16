@@ -20,8 +20,8 @@ echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 ln -s "$timezone" /etc/localtime
 locale-gen
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/ntp.start -o /etc/local.d/ntp.start
-chmod 755 /etc/local.d/ntp.start
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/20-ntp.start -o /etc/local.d/20-ntp.start
+chmod 755 /etc/local.d/20-ntp.start
 echo "0" > /etc/local.d/.ntpsync
 
 # networkmanager configuration 
@@ -141,18 +141,18 @@ echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pip
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
-echo -e "#!/bin/sh\nfstrim -Av &" > /etc/local.d/trim.start
-chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/trim.start
+echo -e "#!/bin/sh\nfstrim -Av &" > /etc/local.d/99-trim.start
+chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/99-trim.start
 chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
     echo 'options snd_hda_intel power_save=1' > /etc/modprobe.d/audio_powersave.conf
     echo 'vm.dirty_writeback_centisecs = 6000' > /etc/sysctl.d/dirty.conf
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/bashpower.start -o /etc/local.d/bashpower.start
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/15-bashpower.start -o /etc/local.d/15-bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/NVIDIA-FCKR/NVIDIA-FCKR -o /usr/local/bin/NVIDIA-FCKR
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call --needed --noconfirm
-    chmod 755 /etc/local.d/bashpower.start /usr/local/bin/NVIDIA-FCKR
+    chmod 755 /etc/local.d/15-bashpower.start /usr/local/bin/NVIDIA-FCKR
     NVIDIA-FCKR integrated
 fi
 
