@@ -28,4 +28,4 @@ Generic:
 
 Special:
 
-- ASUS Zephyrus G14 (2020) (bugged - cannot boot current Artix ISO images - can install from 2022-01-23 ISO)
+- ASUS Zephyrus G14 (2020)
