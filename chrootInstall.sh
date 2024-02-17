@@ -148,11 +148,11 @@ chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
     echo 'options snd_hda_intel power_save=1' > /etc/modprobe.d/audio_powersave.conf
-    echo 'vm.dirty_writeback_centisecs = 6000' > /etc/sysctl.d/dirty.conf
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/bashpower-g14/15-bashpower.start -o /etc/local.d/15-bashpower.start
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/g14-tunables/30-tunables.start -o /etc/local.d/30-tunables.start
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/g14-bashpower/15-bashpower.start -o /etc/local.d/15-bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/NVIDIA-FCKR/NVIDIA-FCKR -o /usr/local/bin/NVIDIA-FCKR
     pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call --needed --noconfirm
-    chmod 755 /etc/local.d/15-bashpower.start /usr/local/bin/NVIDIA-FCKR
+    chmod 755 /etc/local.d/15-bashpower.start /etc/local.d/30-tunables.start /usr/local/bin/NVIDIA-FCKR
     NVIDIA-FCKR integrated
 fi
 
