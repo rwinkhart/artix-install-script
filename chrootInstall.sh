@@ -151,7 +151,7 @@ if [ "$formfactor" == 1 ]; then
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/g14-tunables/30-tunables.start -o /etc/local.d/30-tunables.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/g14-bashpower/15-bashpower.start -o /etc/local.d/15-bashpower.start
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/NVIDIA-FCKR/NVIDIA-FCKR -o /usr/local/bin/NVIDIA-FCKR
-    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call --needed --noconfirm
+    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call iw --needed --noconfirm
     chmod 755 /etc/local.d/15-bashpower.start /etc/local.d/30-tunables.start /usr/local/bin/NVIDIA-FCKR
     NVIDIA-FCKR integrated
 fi
