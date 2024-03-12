@@ -2,31 +2,31 @@
 
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
-echo rwinkhart\'s artix install script
-echo last updated february 16, 2024 \(rev. D\)
+echo rwinkhart\'s Artix Install Script
+echo last updated March 12, 2024 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
 read -n 1 -s -r -p 'Press any key to continue'
 
 # start simple questions
-echo -e '\nspecial devices:\n1. asus zephyrus g14 (2020)\ngeneric:\n2. laptop\n3. desktop\n4. headless\n'
-read -n 1 -r -p "formfactor: " formfactor
+echo -e '\nSpecial devices:\n1. ASUS Zephyrus G14 (2020)\nGeneric:\n2. Laptop\n3. Desktop\n4. Headless\n'
+read -n 1 -r -p "Formfactor: " formfactor
 
 echo -e "\n"
 fdisk -l
 echo
-read -rp "disk: " disk
+read -rp "Disk: " disk
 
-read -rp "swap (in GB): " swap
+read -rp "Swap (in GB): " swap
 
-read -n 1 -rp "clean install? (y/N) " wipe
+read -n 1 -rp "Clean install? (y/N) " wipe
 echo
-read -rp "username: " username
+read -rp "Username: " username
 
 read -rp "$username password: " userpassword
 
-read -rp "hostname: " hostname
+read -rp "Hostname: " hostname
 # end simple questions
 
 # start timezone configuration
@@ -55,7 +55,7 @@ show_tz_list() {
 while true; do
     show_tz_list
     echo
-    read -rp "timezone: " timezone
+    read -rp "Timezone: " timezone
     case "$timezone" in
         none|abort) break;;
         "") continue;;
@@ -101,7 +101,7 @@ res_y_half=$(echo "$(echo "$res_detect" | cut -d 'x' -f2) / 2" | bc)
 
 # start conditional questions
 if [ "$gpu" == 'Intel' ]; then
-    echo -e '1. libva-intel-driver (intel igpus up to coffee lake)\n2. intel-media-driver (intel igpus/dgpus newer than coffee lake)\n'
+    echo -e '1. libva-intel-driver (Intel iGPUs up to Coffee Lake)\n2. intel-media-driver (Intel iGPUs/dGPUs Broadwell and newer)\n'
     read -n 1 -rp "va-api driver: " intel_vaapi_driver
 fi
 # stop conditional questions

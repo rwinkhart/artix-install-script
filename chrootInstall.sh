@@ -119,29 +119,27 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 ## KDE Plasma
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S plasma-desktop plasma-wayland-session plasma-wayland-protocols xdg-desktop-portal-kde kscreen kwallet-pam kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras kwalletmanager ark kate hunspell hunspell-en_us konsole bluedevil dolphin qt5-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols qt6-wayland polkit bluez-openrc --needed --noconfirm
+    pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanagerplasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols hunspell hunspell-en_us polkit bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
     mkdir -p /home/"$username"/.local/share/konsole
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kglobalshortcutsrc -o /home/"$username"/.config/kglobalshortcutsrc
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
+    # TEMPORARILY DISABLED FOR PLASMA 6 TESTING
+    #curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/pam-login -o /etc/pam.d/login
+    #curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
+    #curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kglobalshortcutsrc -o /home/"$username"/.config/kglobalshortcutsrc
+    #curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
     echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
     echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
     echo -e "[1]\nDescription=konquake\nabove=true\naboverule=2\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
     chmod 755 /usr/local/bin/konquake
-    chown -R "$username":users /home/"$username"/.config/kwinrc /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc
+    chown -R "$username":users /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc
 fi
 
 mkdir /home/"$username"/.config/autostart
 echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
-echo -e "#!/bin/sh\nfstrim -Av &" > /etc/local.d/99-trim.start
 chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/99-trim.start
 chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc
 
@@ -172,6 +170,10 @@ chmod 700 /home/"$username"/.gnupg
 chmod 600 /home/"$username"/.gnupg/gpg-agent.conf
 
 # misc configuration
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/powerset/powerset.sh -o /usr/local/bin/powerset.sh
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/zsh-histclean/histclean -o /usr/local/bin/histclean
+echo -e "#!/bin/sh\nfstrim -Av &" > /etc/local.d/99-trim.start
+chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/histclean /etc/local.d/99-trim.start
 if [ "$swap" -gt 0 ]; then
     echo 'vm.swappiness=10' > /etc/sysctl.d/99-swappiness.conf
 else
