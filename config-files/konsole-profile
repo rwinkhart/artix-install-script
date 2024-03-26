@@ -1,11 +1,13 @@
 [Appearance]
-ColorScheme=DarkPastels
+ColorScheme=gruvboxDark
+Font=Hack,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [General]
 Command=/bin/zsh
+InvertSelectionColors=true
 Name=Custom
 Parent=FALLBACK/
 StartInCurrentSessionDir=false
 
 [Scrolling]
-HistorySize=2000
+HistorySize=10000
