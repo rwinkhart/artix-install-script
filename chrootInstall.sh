@@ -183,8 +183,9 @@ fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
 echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase max virtual memory maps (helps with some Wine games)
 pacman -S neofetch htop neovim --needed --noconfirm
-mkdir -p /etc/xdg/nvim
+mkdir -p /etc/xdg/nvim/colors
 curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/sysinit.vim -o /etc/xdg/nvim/sysinit.vim
+curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gruvbox.vim -o /etc/xdg/nvim/colors/gruvbox.vim
 rc-update add local boot
 rc-update del local default
 

@@ -1,3 +1,6 @@
+" load color scheme
+autocmd vimenter * ++nested colorscheme gruvbox
+
 " ensure correct basic settings
 set fileencoding=utf-8
 
