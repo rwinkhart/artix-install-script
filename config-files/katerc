@@ -1,0 +1,6 @@
+[General]
+Show welcome view for new window=false
+
+[KTextEditor Renderer]
+Auto Color Theme Selection=false
+Color Theme=gruvbox Dark
