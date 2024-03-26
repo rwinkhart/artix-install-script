@@ -18,20 +18,20 @@ bindkey '^[[F' end-of-line
 bindkey '^[[3~' delete-char
 
 # random text art (this section can be safely deleted)
-art_cat='%F{214}/\_,_/\
+art_cat='%F{#fe8019}/\_,_/\
 \ 0 0 /%f'
-art_dog=' %F{222}/___/
+art_dog=' %F{#d79921}/___/
 | 6.6 |%f'
-art_bear='%F{172}() ()
+art_bear='%F{#d65d0e}() ()
 (o.o)%f'
-art_snail=' %F{114}|_/
+art_snail=' %F{#689d6a}|_/
 /o o\%f'
-art_bunny=' /_/
+art_bunny=' %F{#d5c4a1}/_/
 |^.^|'
-art_jellyfish='%F{183}<===>
+art_jellyfish='%F{#83a598}<===>
 //|\\%f'
-art_school='    %F{214}<°))><     %F{222}><(((.>
-%F{114}><(((°>   %F{183}><((((°>%f'
+art_school='    %F{#fe8019}<°))><     %F{#fabd2f}><(((.>
+%F{#8ec07c}><(((°>   %F{#d3869b}><((((°>%f'
 art_array=("$art_cat" "$art_dog" "$art_bear" "$art_snail" "$art_bunny" "$art_jellyfish" "$art_school")
 print -Pr "$art_array[$((RANDOM%7+1))]"
 function term_clear() {
