@@ -113,6 +113,7 @@ contrast=4
 [WM]
 activeBackground=40,40,40
 activeBlend=29,32,33
+activeFont=Noto Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 activeForeground=235,219,178
 inactiveBackground=40,40,40
 inactiveBlend=29,32,33
