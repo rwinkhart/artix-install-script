@@ -122,12 +122,14 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanager plasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats qt6-multimedia-ffmpeg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols hunspell hunspell-en_us bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
     mkdir -p /home/"$username"/.local/share/{konsole,color-schemes}
+    mkdir -p /home/"$username"/.config/KDE
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kdeglobals-gruvboxDark.colors -o /home/"$username"/.config/kdeglobals
     cp /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/gruvboxDarkKonsole.colorscheme -o /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsolerc -o /home/"$username"/.config/konsolerc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/katerc -o /home/"$username"/.config/katerc
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/Sonnet.conf -o /home/"$username"/.config/KDE/Sonnet.conf
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/breezerc -o /home/"$username"/.config/breezerc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kglobalshortcutsrc -o /home/"$username"/.config/kglobalshortcutsrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/powerdevilrc -o /home/"$username"/.config/powerdevilrc
@@ -139,7 +141,7 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
     echo -e "[1]\nDescription=konquake\nabove=true\naboverule=2\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
     chmod 755 /usr/local/bin/konquake
-    chown -R "$username":users /home/"$username"/.config/katerc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors /home/"$username"/.local/share/konsole/Custom.profile /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/powerdevilrc /home/"$username"/.config/kwinrc /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/kded5rc /home/"$username"/.config/breezerc
+    chown -R "$username":users /home/"$username"/.config/katerc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors /home/"$username"/.local/share/konsole/Custom.profile /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/powerdevilrc /home/"$username"/.config/kwinrc /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/kded5rc /home/"$username"/.config/breezerc /home/"$username"/.config/KDE/Sonnet.conf
 fi
 
 mkdir /home/"$username"/.config/autostart
