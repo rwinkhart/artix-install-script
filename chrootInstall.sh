@@ -121,7 +121,7 @@ chmod 755 /home/"$username"/{.config,.local/share}
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
     pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanager plasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats qt6-multimedia-ffmpeg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols hunspell hunspell-en_us bluez-openrc --needed --noconfirm
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
-    mkdir -p /home/"$username"/.local/share/konsole
+    mkdir -p /home/"$username"/.local/share/{konsole,color-schemes}
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kdeglobals-gruvboxDark.colors -o /home/"$username"/.config/kdeglobals
     cp /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/konsole-profile -o /home/"$username"/.local/share/konsole/Custom.profile

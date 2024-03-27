@@ -103,7 +103,7 @@ ForegroundPositive=184,187,38
 ForegroundVisited=211,134,155
 
 [General]
-ColorScheme=GruvboxDark
+ColorScheme=gruvboxDark
 Name=gruvbox Dark
 shadeSortColumn=true
 
