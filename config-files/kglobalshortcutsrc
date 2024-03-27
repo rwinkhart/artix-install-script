@@ -1,7 +1,2 @@
-[dbus-send.desktop]
-_k_friendly_name=\s--type=method_call --dest=org.kde.screensaver /ScreenSaver org.freedesktop.ScreenSaver.Lock&&sleep 1&&dbus-send --type=method_call --dest=org.kde.kglobalaccel  /component/org_kde_powerdevil org.kde.kglobalaccel.Component.invokeShortcut string:'Turn Off Screen'
-_launch=Meta+Esc,none,dbus-send --type=method_call --dest=org.kde.screensaver /ScreenSaver org.freedesktop.ScreenSaver.Lock&&sleep 1&&dbus-send --type=method_call --dest=org.kde.kglobalaccel  /component/org_kde_powerdevil org.kde.kglobalaccel.Component.invokeShortcut string:'Turn Off Screen'
-
-[konquake.desktop]
-_k_friendly_name=konquake
-_launch=F12,none,/usr/local/bin/konquake
+[ksmserver]
+Lock Session=Meta+Esc\tScreensaver,Meta+L\tScreensaver,Lock Session
