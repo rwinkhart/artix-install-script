@@ -8,6 +8,7 @@ CommandTitlebarWheel=Raise/Lower
 magiclampEnabled=true
 shakecursorEnabled=true
 squashEnabled=false
+wobblywindowsEnabled=true
 
 [Windows]
 AutoRaise=true
