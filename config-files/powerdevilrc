@@ -2,3 +2,6 @@
 DimDisplayWhenIdle=false
 TurnOffDisplayIdleTimeoutSec=300
 TurnOffDisplayIdleTimeoutWhenLockedSec=0
+
+[AC][SuspendAndShutdown]
+AutoSuspendAction=0
