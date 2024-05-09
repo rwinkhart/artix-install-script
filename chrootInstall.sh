@@ -120,8 +120,10 @@ chmod 755 /home/"$username"/{.config,.local/share}
 ## KDE Plasma
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
     pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanager plasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats qt6-multimedia-ffmpeg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols hunspell hunspell-en_us bluez-openrc --needed --noconfirm
+
+    # misc. configs
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
-    mkdir -p /home/"$username"/.local/share/{konsole,color-schemes}
+    mkdir -p /home/"$username"/.local/share/{konsole,color-schemes,dolphin/view_properties/global}
     mkdir -p /home/"$username"/.config/KDE
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kdeglobals-gruvboxDark.colors -o /home/"$username"/.config/kdeglobals
     cp /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors
@@ -137,19 +139,22 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kded5rc -o /home/"$username"/.config/kded5rc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
+    echo -e "[Dolphin]\nVersion=4\nVisibleRoles=Icons_text,Icons_size,Icons_modificationtime" > /home/"$username"/.local/share/dolphin/view_properties/global/.directory
     echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
     echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
     echo -e "[1]\nDescription=konquake\nabove=true\naboverule=2\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
-    chmod 755 /usr/local/bin/konquake
-    chown -R "$username":users /home/"$username"/.config/katerc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors /home/"$username"/.local/share/konsole/Custom.profile /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/powerdevilrc /home/"$username"/.config/kwinrc /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/kded5rc /home/"$username"/.config/breezerc /home/"$username"/.config/KDE/Sonnet.conf /home/"$username"/.config/kactivitymanagerdrc
+    
+    # pipewire
+    mkdir /home/"$username"/.config/autostart
+    echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
+
+    # permissions
+    chmod 755 /usr/local/bin/konquake /usr/local/bin/pipewire-start.sh
+    chown -R "$username":users /home/"$username"/.config/katerc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors /home/"$username"/.local/share/konsole/Custom.profile /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/powerdevilrc /home/"$username"/.config/kwinrc /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/kded5rc /home/"$username"/.config/breezerc /home/"$username"/.config/KDE/Sonnet.conf /home/"$username"/.config/kactivitymanagerdrc /home/"$username"/.local/share/dolphin /home/"$username"/.config/autostart
 fi
 
-mkdir /home/"$username"/.config/autostart
-echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
-chmod 755 /usr/local/bin/powerset.sh /usr/local/bin/pipewire-start.sh /usr/local/bin/histclean /etc/local.d/99-trim.start
-chown -R "$username":users /home/"$username"/.config/autostart /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc
 
 # asus g14 2020 configuration
 if [ "$formfactor" == 1 ]; then
