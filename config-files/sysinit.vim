@@ -7,6 +7,9 @@ set fileencoding=utf-8
 " show line numbers
 set number
 
+" enable basic spellchecking
+set spell
+
 " set keybinds (home/end)
 noremap <C-a> <Home>
 imap <C-a> <Home>
