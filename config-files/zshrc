@@ -1,4 +1,4 @@
-# shell settings (this section impacts shell functionality)
+# Shell settings
 HISTFILE="$XDG_CACHE_HOME"/zsh-histfile
 HISTSIZE=2500
 SAVEHIST=2000
@@ -9,7 +9,7 @@ unsetopt beep
 bindkey -e
 zstyle :compinstall filename "/home/$USER/.zshrc"
 autoload -Uz compinit
-compinit
+compinit -d "$XDG_CACHE_HOME"/zcompdump
 PS1='%F{cyan}%n%f@%F{cyan}%m:%f%1~%f%F{cyan}|%#%f '
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -17,7 +17,7 @@ bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 bindkey '^[[3~' delete-char
 
-# random text art (this section can be safely deleted)
+# Text art on clear/new shell
 art_cat='%F{#fe8019}/\_,_/\
 \ 0 0 /%f'
 art_dog=' %F{#d79921}/___/
@@ -42,7 +42,7 @@ function term_clear() {
 zle -N zsh-redraw term_clear
 bindkey "^L" zsh-redraw
 
-# aliases
+# Stock aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias orphans='doas pacman -Rcns $(pacman -Qqdt)'

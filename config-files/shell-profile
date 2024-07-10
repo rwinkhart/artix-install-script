@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # WAYLAND ENV
-export ELECTRON_OZONE_PLATFORM_HINT=auto
 export WAYLAND_PROTOCOLS_DATADIR="/usr/share/wayland-protocols"
+export ELECTRON_OZONE_PLATFORM_HINT=auto
 
-# XDG ENV
+# XDG BASE ENV
 export XDG_DATA_HOME="$HOME"/.local/share
 export XDG_CONFIG_HOME="$HOME"/.config
 export XDG_STATE_HOME="$HOME"/.local/state
@@ -14,7 +14,14 @@ export XDG_CACHE_HOME="$HOME"/.cache
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export WINEPREFIX="$XDG_DATA_HOME"/wine
+export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export GOPATH="$XDG_DATA_HOME"/go
 
+# MISC SETTINGS
 export EDITOR=nvim
 export BUILDDIR=/tmp/makepkg
 
