@@ -6,7 +6,6 @@ CommandTitlebarWheel=Raise/Lower
 
 [Plugins]
 magiclampEnabled=true
-shakecursorEnabled=true
 squashEnabled=false
 wobblywindowsEnabled=true
 
