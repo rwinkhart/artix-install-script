@@ -139,7 +139,7 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kwinrc -o /home/"$username"/.config/kwinrc
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/plasma-org.kde.plasma.desktop-appletsrc -o /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc
     echo -e "[Dolphin]\nVersion=4\nVisibleRoles=Icons_text,Icons_size,Icons_modificationtime" > /home/"$username"/.local/share/dolphin/view_properties/global/.directory
-    echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
+    echo -e "[General]\nActivateWhenTypingOnDesktop=false\nFreeFloating=true\n\n[Plugins]\nbaloosearchEnabled=false\nhelprunnerEnabled=false\nkrunner_appstreamEnabled=false\nkrunner_bookmarksrunnerEnabled=false\nkrunner_charrunnerEnabled=false\nkrunner_katesessionsEnabled=false\nkrunner_killEnabled=false\nkrunner_konsoleprofilesEnabled=false\nkrunner_kwinEnabled=false\nkrunner_placesrunnerEnabled=false\nkrunner_plasma-desktopEnabled=false\nkrunner_powerdevilEnabled=false\nkrunner_recentdocumentsEnabled=false\nkrunner_sessionsEnabled=false\nkrunner_webshortcutsEnabled=false\nlocationsEnabled=false\norg.kde.activities2Enabled=false\nwindowsEnabled=false" > /home/"$username"/.config/krunnerrc
     echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
     
