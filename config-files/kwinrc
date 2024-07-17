@@ -1,6 +1,3 @@
-[ModifierOnlyShortcuts]
-Meta=org.kde.krunner,/App,,toggleDisplay
-
 [MouseBindings]
 CommandTitlebarWheel=Raise/Lower
 
