@@ -121,8 +121,7 @@ chmod 755 /home/"$username"/{.config,.local/share}
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
     pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanager plasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats qt6-multimedia-ffmpeg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols hunspell hunspell-en_us bluez-openrc --needed --noconfirm
 
-    # misc. configs
-    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
+    # misc. config
     mkdir -p /home/"$username"/.local/share/{konsole,color-schemes,dolphin/view_properties/global}
     mkdir -p /home/"$username"/.config/KDE
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/config-files/kdeglobals-gruvboxDark.colors -o /home/"$username"/.config/kdeglobals
@@ -143,16 +142,20 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     echo -e "[PlasmaRunnerManager]\nmigrated=true\n\n[Plugins]\nbaloosearchEnabled=false" > /home/"$username"/.config/krunnerrc
     echo -e "[Basic Settings]\nIndexing-Enabled=false" > /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" > /home/"$username"/.config/ksmserverrc
-    echo -e "[1]\nDescription=konquake\nabove=true\naboverule=2\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
     
     # pipewire
     mkdir /home/"$username"/.config/autostart
     echo -e "[Desktop Entry]\nExec=/usr/local/bin/pipewire-start.sh\nIcon=\nName=pipewire-start\nPath=\nTerminal=False\nType=Application" > /home/"$username"/.config/autostart/pipewire.desktop
     curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/pipewire-start/pipewire-start.sh -o /usr/local/bin/pipewire-start.sh
 
+    # konquake
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/konquake/konquake.sh -o /usr/local/bin/konquake
+    echo -e "[Desktop Entry]\nExec=/usr/local/bin/konquake\nName=/usr/local/bin/konquake\nNoDisplay=true\nStartupNotify=false\nType=Application\nX-KDE-GlobalAccel-CommandShortcut=true" > /home/"$username"/.local/share/applications/konquake.desktop
+    echo -e "[1]\nDescription=konquake\nabove=true\naboverule=2\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" > /home/"$username"/.config/kwinrulesrc
+
     # permissions
     chmod 755 /usr/local/bin/konquake /usr/local/bin/pipewire-start.sh
-    chown -R "$username":users /home/"$username"/.config/katerc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors /home/"$username"/.local/share/konsole/Custom.profile /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/powerdevilrc /home/"$username"/.config/kwinrc /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/kded5rc /home/"$username"/.config/breezerc /home/"$username"/.config/KDE/Sonnet.conf /home/"$username"/.config/kactivitymanagerdrc /home/"$username"/.local/share/dolphin /home/"$username"/.config/autostart
+    chown -R "$username":users /home/"$username"/.config/katerc /home/"$username"/.config/konsolerc /home/"$username"/.local/share/konsole /home/"$username"/.config/krunnerrc /home/"$username"/.config/baloofilerc /home/"$username"/.config/ksmserverrc /home/"$username"/.config/kwinrulesrc /home/"$username"/.config/kdeglobals /home/"$username"/.local/share/color-schemes/gruvboxDark.colors /home/"$username"/.local/share/konsole/Custom.profile /home/"$username"/.local/share/konsole/gruvboxDark.colorscheme /home/"$username"/.config/kglobalshortcutsrc /home/"$username"/.config/powerdevilrc /home/"$username"/.config/kwinrc /home/"$username"/.config/plasma-org.kde.plasma.desktop-appletsrc /home/"$username"/.config/kded5rc /home/"$username"/.config/breezerc /home/"$username"/.config/KDE/Sonnet.conf /home/"$username"/.config/kactivitymanagerdrc /home/"$username"/.local/share/dolphin /home/"$username"/.config/autostart /home/"$username"/.local/share/applications
 fi
 
 
