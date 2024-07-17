@@ -15,6 +15,7 @@ AutoRaiseInterval=500
 DelayFocusInterval=500
 FocusPolicy=FocusFollowsMouse
 NextFocusPrefersMouse=true
+Placement=UnderMouse
 
 [org.kde.kdecoration2]
 BorderSize=None
