@@ -3,14 +3,14 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s Artix Install Script
-echo last updated August 26, 2024 \(rev. A\)
+echo last updated August 26, 2024 \(rev. B\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
 read -n 1 -s -r -p 'Press any key to continue'
 
 # start simple questions
-echo -e '\nSpecial devices:\n1. ASUS Zephyrus G14 (2020)\nGeneric:\n2. Laptop\n3. Desktop\n4. Headless\n'
+echo -e '\nSpecial devices:\n1. ASUS Zephyrus G14 (2020)\nGeneric:\n2. Laptop\n3. Desktop\n4. Headless desktop\n'
 read -n 1 -r -p "Formfactor: " formfactor
 
 echo -e "\n"

@@ -20,9 +20,6 @@ echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 ln -s "$timezone" /etc/localtime
 locale-gen
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/20-ntp.start -o /etc/local.d/20-ntp.start
-chmod 755 /etc/local.d/20-ntp.start
-echo "0" > /etc/local.d/.ntpsync
 
 # networkmanager configuration 
 pacman -S networkmanager-openrc --noconfirm
@@ -105,9 +102,13 @@ fi
 # disable kernel watchdog
 echo 'blacklist iTCO_wdt' > /etc/modprobe.d/blacklist.conf
 
-# install powertop on laptops
+# install laptop/desktop specific content (powertop on laptops; ntp local service startup script on desktops)
 if [ "$formfactor" == 2 ] || [ "$formfactor" == 1 ]; then
     pacman -S powertop --needed --noconfirm
+else
+    curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/programs/ntp-rclocal/20-ntp.start -o /etc/local.d/20-ntp.start
+    chmod 755 /etc/local.d/20-ntp.start
+    echo "0" > /etc/local.d/.ntpsync
 fi
 
 # set home directory permissions
