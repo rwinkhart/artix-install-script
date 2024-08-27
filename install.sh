@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s Artix Install Script
-echo last updated August 26, 2024 \(rev. B\)
+echo last updated August 27, 2024 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -223,7 +223,7 @@ echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
 base_devel='db diffutils gc guile libisl libmpc perl autoconf automake bash dash binutils bison esysusers etmpfiles fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman pacman-contrib patch pkgconf sed opendoas texinfo which bc udev ntp'
 basestrap /mnt base $base_devel openrc elogind-openrc linux linux-firmware git man-db iptables-nft
 
-# applying IPv6 privacy entensions for all interfaces
+# applying IPv6 privacy extensions for all interfaces
 echo -e 'net.ipv6.conf.all.use_tempaddr = 2\nnet.ipv6.conf.default.use_tempaddr = 2' > /mnt/etc/sysctl.d/40-ipv6.conf
 for int in "${interfaces[@]}"; do
       echo "net.ipv6.conf.${int:15}.use_tempaddr = 2" >> /mnt/etc/sysctl.d/40-ipv6.conf
