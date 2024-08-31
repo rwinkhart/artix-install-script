@@ -1,24 +1,32 @@
 #!/usr/bin/env bash
-# this bashpower script is intended for ASUS gaming laptops, 2020-2022
-# it has only been tested on the 2020 Zephyrus G14 (GA401IV)
-# kernel 5.17+ is required for full functionality
-# place in /etc/local.d/ and use in conjunction with OpenRC for best results
-# be sure to add the "local" service to the default runlevel for this script to function 
+# This bashpower script is intended for ASUS gaming laptops, 2020-2022.
+# It has only been tested on the 2020 Zephyrus G14 (GA401IV).
+# Place in /etc/local.d/ and use in conjunction with OpenRC for best results.
+# Be sure to add the "local" service to the default runlevel for this script to function.
 
-# create config directory and set default settings
+# BEGIN DEFAULT SETTING DEFINITIONS
 mkdir -p /usr/local/bashpower
-#if [ ! -f /usr/local/bashpower/governor ] ; then
-#    echo powersave > /usr/local/bashpower/governor
-#fi
+
+## set default CPU governor to powersave
+if [ ! -f /usr/local/bashpower/governor ] ; then
+    echo powersave > /usr/local/bashpower/governor
+fi
+
+## set default battery charge limit to 80%
 if [ ! -f /usr/local/bashpower/batt_limit ] ; then
     echo 80 > /usr/local/bashpower/batt_limit
 fi
-if [ ! -f /usr/local/bashpower/fan_curve ] ; then
-    echo '20:0 30:0 40:0 50:30 60:50 70:70 85:100 90:100' > /usr/local/bashpower/fan_curve
-fi
+
+## set default screen brightness to 50%
 if [ ! -f /usr/local/bashpower/screen_brightness ] ; then
     echo 50 > /usr/local/bashpower/screen_brightness
 fi
+
+## set default fan curve
+if [ ! -f /usr/local/bashpower/fan_curve ] ; then
+    echo '20:0 30:0 40:0 55:30 60:50 70:70 85:100 90:100' > /usr/local/bashpower/fan_curve
+fi
+# END DEFAULT SETTING DEFINITIONS
 
 # import user settings
 governor=$(< /usr/local/bashpower/governor)
@@ -26,23 +34,27 @@ batt_limit=$(< /usr/local/bashpower/batt_limit)
 fan_curve=$(< /usr/local/bashpower/fan_curve)
 screen_brightness=$(< /usr/local/bashpower/screen_brightness)
 
-## on run:
+# BEGIN BOOT OPERATIONS
+## set cpu governor
+for CPU in $(seq 0 $(($(nproc) - 1))); do
+    echo $governor > /sys/devices/system/cpu/cpu"$CPU"/cpufreq/scaling_governor
+done
 
-# set cpu governor
-#for CPU in $(seq 0 $(($(nproc) - 1))); do
-#    echo $governor > /sys/devices/system/cpu/cpu"$CPU"/cpufreq/scaling_governor
-#done
-
-# set keyboard backlight to off
+## turn off keyboard backlight
 echo 0 > /sys/class/leds/asus::kbd_backlight/brightness
 
-# set screen brightness
+## set screen brightness
 echo $screen_brightness > /sys/class/backlight/amdgpu_bl0/brightness
 
-# set battery charge limit
+## set battery charge limit
 echo "$batt_limit" > /sys/class/power_supply/BAT0/charge_control_end_threshold
 
-# set fan curve
+## set to quiet profile with curve-based fan control
+echo 2 > /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy
+echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$auto_dir"/pwm1_enable
+
+## set manual fan curve
+auto_dir=$(ls /sys/devices/platform/asus-nb-wmi/hwmon | awk 'FNR == 1 {print}' | cut -c6-)
 curve_dir=$(ls /sys/devices/platform/asus-nb-wmi/hwmon | awk 'FNR == 2 {print}' | cut -c6-)
 for POINT in $(seq 8); do
     IFS=':' read -ra CURVE <<< "$(echo "$fan_curve" | awk -v var="$POINT" '{print $var;}')"
@@ -53,10 +65,8 @@ for POINT in $(seq 8); do
     echo $curve_speed > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_auto_point"$POINT"_pwm
     echo $curve_speed > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_auto_point"$POINT"_pwm
 done
-echo 2 > /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy  # set to quiet profile
-echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon$(($curve_dir - 1))/pwm1_enable  # set to auto
-echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_enable  # set to auto to force update
-echo 2 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_enable  # set to auto to force update
-sleep 2
-echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_enable  # set to manual
-echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_enable  # set to manual
+
+## enable manual fan curve
+echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm1_enable
+echo 1 > /sys/devices/platform/asus-nb-wmi/hwmon/hwmon"$curve_dir"/pwm2_enable
+# END BOOT OPERATIONS
