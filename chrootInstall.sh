@@ -195,8 +195,7 @@ pacman -S neofetch htop neovim --needed --noconfirm
 mkdir -p /etc/xdg/nvim/colors
 install -m 0644 ./config-files/sysinit.vim /etc/xdg/nvim/sysinit.vim
 install -m 0644 ./config-files/gruvbox.vim /etc/xdg/nvim/colors/gruvbox.vim
-rc-update add local boot
-rc-update del local default
+rc-update add local
 
 # echo completion message
 echo -e "\n---------------------------------------------------------"
