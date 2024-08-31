@@ -150,6 +150,9 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     install -m 0755 ./programs/konquake/konquake.sh /usr/local/bin/konquake
     install -Dm 0644 -o $username -g users ./programs/konquake/konquake.desktop /home/"$username"/.local/share/applications/konquake.desktop
     echo -e "[1]\nDescription=konquake\nabove=true\naboverule=2\nnoborder=true\nnoborderrule=2\nplacement=6\nplacementrule=2\nsize=$res_x,$res_y_half\nsizerule=3\ntitle=konquake session\ntitlematch=2\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[2]\nDescription=konsole\nsize=1280,800\nsizerule=3\ntypes=1\nwmclass=konsole org.kde.konsole\nwmclasscomplete=true\nwmclassmatch=1\n\n[General]\ncount=2\nrules=1,2" | install -m 0600 -o $username -g users /dev/stdin /home/"$username"/.config/kwinrulesrc
+
+    # directory ownership
+    chown -R $username:users /home/"$username"/.local/share/color-schemes /home/"$username"/.local/share/konsole /home/"$username"/.config/KDE /home/"$username"/.local/share/dolphin /home/"$username"/.config/autostart /home/"$username"/.local/share/applications
 fi
 
 
