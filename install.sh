@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s Artix Install Script
-echo last updated August 27, 2024 \(rev. A\)
+echo Last updated August 30, 2024 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
@@ -81,7 +81,7 @@ done
 # end timezone configuration
 
 # start hardware detection
-pacman -Sy bc --noconfirm
+pacman -S bc --noconfirm
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
@@ -232,7 +232,6 @@ done
 # create array of variables to pass to part 2
 var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $timezone $swap $intel_vaapi_driver $res_x $res_y_half)
 
-# download and initiate part 2
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/chrootInstall.sh -o /mnt/chrootInstall.sh
-chmod +x /mnt/chrootInstall.sh
-artix-chroot /mnt /chrootInstall.sh "${var_export[@]}"
+# initiate part 2
+mount --bind /root/artix-install-script /mnt/mnt
+artix-chroot /mnt /mnt/chrootInstall.sh "${var_export[@]}"

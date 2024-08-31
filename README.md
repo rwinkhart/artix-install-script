@@ -2,7 +2,7 @@
 With the recent release of Plasma 6, this script needs some restructuring. Do not use it until this message disappears.
 
 # Overview
-An Artix Linux (OpenRC) installation script that can be used to install and configure Artix Linux (OpenRC) with my preferred setup.
+An Artix Linux (OpenRC) installation script that can be used to install and configure Artix Linux (OpenRC) with _**my**_ preferred setup.
 
 Some major/noteworthy differences from common configurations:
 
@@ -14,21 +14,20 @@ Some major/noteworthy differences from common configurations:
 - Plasma Wayland is configured for speed and security by default (disabled Klipper, Baloo, session restore, etc.)
 
 # Usage
-Upon loading up the official Artix OpenRC base ISO (tested on weekly base images only), logging in, connecting to the internet, and switching to the root user, run:
+Upon loading up the official Artix OpenRC base ISO (tested on weekly base images only), logging in as root, and connecting to the internet, run:
 
 ```
-curl https://raw.githubusercontent.com/rwinkhart/artix-install-script/main/install.sh -o install.sh
-chmod +x install.sh
+pacman -Sy git
+git clone --depth 1 https://github.com/rwinkhart/artix-install-script
+cd artix-install-script
 ./install.sh
 ```
 
-After running the script, it will ask you some questions about your desired configuration. Answer them and then the installation will complete automatically.
+After running the script, it will ask some questions about your desired configuration. Answer them and then the installation will complete automatically.
 
 # Supported Devices
 Generic:
-
 - Most x86_64 desktops and laptops
 
 Special:
-
 - ASUS Zephyrus G14 (2020)
