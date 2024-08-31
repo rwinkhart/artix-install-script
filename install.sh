@@ -3,13 +3,13 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s Artix Install Script
-echo Last updated August 30, 2024 \(rev. A\)
+echo Last updated August 31, 2024 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"
 read -n 1 -s -r -p 'Press any key to continue'
 
-# start simple questions
+# BEGIN BASIC QUESTIONS
 echo -e '\nSpecial devices:\n1. ASUS Zephyrus G14 (2020)\nGeneric:\n2. Laptop\n3. Desktop\n4. Headless desktop\n'
 read -n 1 -r -p "Formfactor: " formfactor
 
@@ -27,9 +27,9 @@ read -rp "Username: " username
 read -rp "$username password: " userpassword
 
 read -rp "Hostname: " hostname
-# end simple questions
+# END BASIC QUESTIONS
 
-# start timezone configuration
+# BEGIN TIMEZONE CONFIGURATION
 zroot=/usr/share/zoneinfo
 
 show_tz_list() {
@@ -78,9 +78,9 @@ while true; do
     fi
     echo "'$timezone' is not a valid timezone on this system"
 done
-# end timezone configuration
+# END TIMEZONE CONFIGURATION
 
-# start hardware detection
+# BEGIN HARDWARE DETECTION
 pacman -S bc --noconfirm
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 
@@ -97,16 +97,16 @@ res_detect=$(</sys/class/graphics/fb0/modes)
 res_detect="${res_detect:2:${#res_detect}-5}"
 res_x=$(printf "$res_detect" | cut -d 'x' -f1)
 res_y_half=$(echo "$(echo "$res_detect" | cut -d 'x' -f2) / 2" | bc)
-# stop hardware detection
+# END HARDWARE DETECTION
 
-# start conditional questions
+# BEGIN CONDITIONAL QUESTIONS
 if [ "$gpu" == 'Intel' ]; then
     echo -e '1. libva-intel-driver (Intel iGPUs up to Coffee Lake)\n2. intel-media-driver (Intel iGPUs/dGPUs Broadwell and newer)\n'
     read -n 1 -rp "va-api driver: " intel_vaapi_driver
 fi
-# stop conditional questions
+# END CONDITIONAL QUESTIONS
 
-# start variable manipulation
+# BEGIN VARIABLE MANIPULATION
 wipe=$(echo "$wipe" | tr '[:upper:]' '[:lower:]')
 username=$(echo "$username" | tr '[:upper:]' '[:lower:]')
 hostname=$(echo "$hostname" | tr '[:upper:]' '[:lower:]')
@@ -119,7 +119,7 @@ fi
 if [ "$formfactor" == 1 ]; then
     gpu=NVIDIA
 fi
-# stop variable manipulation
+# END VARIABLE MANIPULATION
 
 # determine if running as UEFI or BIOS
 if [ -d "/sys/firmware/efi" ]; then
@@ -128,7 +128,7 @@ else
     boot=2
 fi
 
-# start partitioning
+# BEGIN PARTITIONING
 if [ "$boot" == 1 ]; then
     # gpt/uefi partitioning
     if [ "$wipe" == y ]; then
@@ -213,7 +213,7 @@ fi
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 echo -e "\ntmpfs   /tmp         tmpfs   rw,nodev,nosuid,size="$(echo ".75 * $ram / 1" | bc)"G          0  0" >> /mnt/etc/fstab
-# stop partitioning
+# END PARTITIONING
 
 # setting hostname
 echo "$hostname" > /mnt/etc/hostname
@@ -228,6 +228,9 @@ echo -e 'net.ipv6.conf.all.use_tempaddr = 2\nnet.ipv6.conf.default.use_tempaddr 
 for int in "${interfaces[@]}"; do
       echo "net.ipv6.conf.${int:15}.use_tempaddr = 2" >> /mnt/etc/sysctl.d/40-ipv6.conf
 done
+
+# setting basic restrictions on sysrq
+echo 'kernel.sysrq = 244' > /mnt/etc/sysctl.d/35-sysrq.conf
 
 # create array of variables to pass to part 2
 var_export=($formfactor $threadsminusone $gpu $boot $disk0 $username $userpassword $timezone $swap $intel_vaapi_driver $res_x $res_y_half)

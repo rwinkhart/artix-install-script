@@ -42,11 +42,11 @@ fi
 install -m 0644 /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 install -m 0644 ./config-files/grub /etc/default/grub
 if [ "$gpu" == 'NVIDIA' ]; then
-    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet sysrq_always_enabled=1 nowatchdog mem_sleep_default=deep nvidia-drm.modeset=1\"" >> /etc/default/grub
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep nvidia-drm.modeset=1\"" >> /etc/default/grub
 elif [ "$gpu" == 'AMD' ]; then
-    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet sysrq_always_enabled=1 nowatchdog mem_sleep_default=deep amdgpu.ppfeaturemask=0xffffffff\"" >> /etc/default/grub
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep amdgpu.ppfeaturemask=0xffffffff\"" >> /etc/default/grub
 else
-    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet sysrq_always_enabled=1 nowatchdog mem_sleep_default=deep\"" >> /etc/default/grub
+    echo "GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet nowatchdog mem_sleep_default=deep\"" >> /etc/default/grub
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
