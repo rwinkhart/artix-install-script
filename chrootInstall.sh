@@ -30,7 +30,7 @@ rc-update add NetworkManager
 
 # bootloader installation and configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
-echo -e "[Trigger]\nOperation=Install\nOperation=Upgrade\nType=Package\nTarget=grub\n\n[Action]\nDescription=Re-install grub after package upgrade.\nWhen=PostTransaction\nNeedsTargets" > /etc/pacman.d/hooks/grub.hook
+echo -e "[Trigger]\nOperation=Install\nOperation=Upgrade\nType=Package\nTarget=grub\n\n[Action]\nDescription=Re-install grub after package upgrade.\nWhen=PostTransaction\nNeedsTargets" | install -Dm 0644 /dev/stdin /etc/pacman.d/hooks/grub.hook
 if [ "$boot" == 1 ]; then
     echo "Exec=/bin/sh -c 'grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck && grub-mkconfig -o /boot/grub/grub.cfg'" >> /etc/pacman.d/hooks/grub.hook
     grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --recheck
@@ -68,7 +68,6 @@ ln -s /usr/bin/doas /usr/local/bin/sudo
 # pacman configuration
 install -m 0644 ./config-files/pacman.conf /etc/pacman.conf
 install -m 0644 ./config-files/makepkg.conf /etc/makepkg.conf
-mkdir -p /etc/pacman.d/hooks
 install -m 0644 ./config-files/paccache-clean.hook /etc/pacman.d/hooks/paccache-clean.hook
 install -m 0644 ./config-files/modemmanager.hook /etc/pacman.d/hooks/modemmanager.hook
 install -m 0644 ./config-files/dash-link.hook /etc/pacman.d/hooks/dash-link.hook
