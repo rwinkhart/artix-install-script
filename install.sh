@@ -81,7 +81,7 @@ done
 # end timezone configuration
 
 # start hardware detection
-pacman -Sy bc --noconfirm
+pacman -S bc --noconfirm
 threadsminusone=$(echo "$(lscpu | grep 'CPU(s):' | awk 'FNR == 1 {print $2;}') - 1" | bc)
 
 gpu=$(lspci | grep 'VGA compatible controller:' | awk 'FNR == 1 {print $5;}')
