@@ -215,6 +215,9 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 echo -e "\ntmpfs   /tmp         tmpfs   rw,nodev,nosuid,size="$(echo ".75 * $ram / 1" | bc)"G          0  0" >> /mnt/etc/fstab
 # END PARTITIONING
 
+# manually binding localhost
+echo "127.0.0.1 localhost" > /mnt/etc/hosts
+
 # setting hostname
 echo "$hostname" > /mnt/etc/hostname
 echo "hostname=\'"$hostname"\'" > /mnt/etc/conf.d/hostname
