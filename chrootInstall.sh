@@ -68,6 +68,7 @@ ln -s /usr/bin/doas /usr/local/bin/sudo
 # pacman configuration
 install -m 0644 ./config-files/pacman.conf /etc/pacman.conf
 install -m 0644 ./config-files/makepkg.conf /etc/makepkg.conf
+install -Dm 0644 ./config-files/makepkg-rust.conf /etc/makepkg.conf.d/rust.conf
 install -m 0644 ./config-files/paccache-clean.hook /etc/pacman.d/hooks/paccache-clean.hook
 install -m 0644 ./config-files/modemmanager.hook /etc/pacman.d/hooks/modemmanager.hook
 install -m 0644 ./config-files/dash-link.hook /etc/pacman.d/hooks/dash-link.hook
