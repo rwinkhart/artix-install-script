@@ -32,7 +32,7 @@ fi
 governor=$(< /usr/local/bashpower/governor)
 batt_limit=$(< /usr/local/bashpower/batt_limit)
 fan_curve=$(< /usr/local/bashpower/fan_curve)
-screen_brightness=$(< /usr/local/bashpower/screen_brightness)
+#screen_brightness=$(< /usr/local/bashpower/screen_brightness)
 
 # BEGIN BOOT OPERATIONS
 ## set cpu governor
@@ -44,7 +44,7 @@ done
 echo 0 > /sys/class/leds/asus::kbd_backlight/brightness
 
 ## set screen brightness
-echo $screen_brightness > /sys/class/backlight/amdgpu_bl0/brightness
+#echo $screen_brightness > /sys/class/backlight/amdgpu_bl0/brightness
 
 ## set battery charge limit
 echo "$batt_limit" > /sys/class/power_supply/BAT0/charge_control_end_threshold
