@@ -24,5 +24,3 @@ export GOPATH="$XDG_DATA_HOME"/go
 # MISC SETTINGS
 export EDITOR=nvim
 export BUILDDIR=/tmp/makepkg
-
-[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && exec dbus-run-session startplasma-wayland

@@ -154,6 +154,9 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
 
     # directory ownership
     chown -R $username:users /home/"$username"/.local/share/color-schemes /home/"$username"/.local/share/konsole /home/"$username"/.config/KDE /home/"$username"/.local/share/dolphin /home/"$username"/.config/autostart /home/"$username"/.local/share/applications
+
+    # shell profile
+    echo -e '\n[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && exec dbus-run-session startplasma-wayland' >> /home/"$username"/.profile
 fi
 
 
