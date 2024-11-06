@@ -45,7 +45,7 @@ bindkey "^L" zsh-redraw
 # Stock aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias fastfetch='fastfetch -c paleofetch'
+alias fastfetch='fastfetch -c neofetch'
 alias orphans='doas pacman -Rcns $(pacman -Qqdt)'
 alias powersave='doas /usr/local/bin/powerset.sh powersave'
 alias performance='doas /usr/local/bin/powerset.sh performance'
