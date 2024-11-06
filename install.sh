@@ -3,7 +3,7 @@
 loadkeys us
 echo ----------------------------------------------------------------------------------------------
 echo rwinkhart\'s Artix Install Script
-echo Last updated October 22, 2024 \(rev. A\)
+echo Last updated November 05, 2024 \(rev. A\)
 echo ----------------------------------------------------------------------------------------------
 echo You will be asked some questions before installation.
 echo -e "----------------------------------------------------------------------------------------------\n"

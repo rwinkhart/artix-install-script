@@ -143,6 +143,9 @@ if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; t
     echo -e "[Basic Settings]\nIndexing-Enabled=false" | install -m 0600 -o $username -g users /dev/stdin /home/"$username"/.config/baloofilerc
     echo -e "[General]\nloginMode=emptySession" | install -m 0600 -o $username -g users /dev/stdin /home/"$username"/.config/ksmserverrc
 
+    # allow auto-unlocking kwallet via PAM
+    install -m 0644 ./config-files/plasma/pam-login-kwallet /etc/pam.d/login
+
     # pipewire
     install -m 0755 ./programs/pipewire-start/pipewire-start.sh /usr/local/bin/pipewire-start.sh
     install -Dm 0644 -o $username -g users ./programs/pipewire-start/pipewire.desktop /home/"$username"/.config/autostart/pipewire.desktop
