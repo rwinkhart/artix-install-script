@@ -86,7 +86,7 @@ ln -sfT dash /usr/bin/sh
 
 # installing hardware-specific packages
 if [ "$gpu" == 'AMD' ]; then
-    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils --needed --noconfirm
+    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-utils --needed --noconfirm
 elif [ "$gpu" == 'Intel' ]; then
     pacman -S mesa vulkan-icd-loader vulkan-intel --needed --noconfirm
     if [ "$intel_vaapi_driver" == 1 ]; then
@@ -169,7 +169,7 @@ if [ "$formfactor" == 1 ]; then
     install -m 0755 ./programs/g14-tunables/30-tunables.start /etc/local.d/30-tunables.start
     install -m 0755 ./programs/g14-bashpower/15-bashpower.start /etc/local.d/15-bashpower.start
     install -m 0755 ./programs/NVIDIA-FCKR/NVIDIA-FCKR /usr/local/bin/NVIDIA-FCKR
-    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-mesa-driver libva-utils acpi_call iw --needed --noconfirm
+    pacman -S mesa vulkan-icd-loader vulkan-radeon libva-utils acpi_call iw --needed --noconfirm
     NVIDIA-FCKR integrated
 fi
 
