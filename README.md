@@ -1,6 +1,3 @@
-# WARNING
-With the recent release of Plasma 6, this script needs some restructuring. Do not use it until this message disappears.
-
 # Overview
 An Artix Linux (OpenRC) installation script that can be used to install and configure Artix Linux (OpenRC) with _**my**_ preferred setup.
 
