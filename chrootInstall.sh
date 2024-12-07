@@ -121,7 +121,7 @@ chmod 755 /home/"$username"/{.config,.local/share}
 
 ## KDE Plasma
 if [ "$formfactor" == 1 ] || [ "$formfactor" == 2 ] || [ "$formfactor" == 3 ]; then
-    pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanager plasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats qt6-multimedia-ffmpeg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols hunspell hunspell-en_us bluez-openrc --needed --noconfirm
+    pacman -S qt6-wayland plasma-desktop xdg-desktop-portal-kde kscreen spectacle gwenview ark kate dolphin konsole kwallet-pam kwalletmanager plasma-nm plasma-pa breeze-gtk kde-gtk-config bluedevil qt6-imageformats qt6-multimedia-ffmpeg pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber wayland-protocols wl-clipboard hunspell hunspell-en_us bluez-openrc --needed --noconfirm
 
     # misc. config
     install -m 0600 -o $username -g users ./config-files/plasma/kdeglobals-gruvboxDark.colors /home/"$username"/.config/kdeglobals
