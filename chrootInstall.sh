@@ -181,12 +181,6 @@ chown -R "$username":users /home/"$username"/.ssh
 chmod 700 /home/"$username"/.ssh
 chmod 600 /home/"$username"/.ssh/authorized_keys
 
-# gpg configuration
-mkdir -p /home/"$username"/.gnupg
-chmod 700 /home/"$username"/.gnupg
-chown -R "$username":users /home/"$username"/.gnupg
-echo 'pinentry-program /usr/bin/pinentry-tty' | install -m 0600 /dev/stdin /home/"$username"/.gnupg/gpg-agent.conf
-
 # misc configuration
 install -m 0755 ./programs/powerset/powerset.sh /usr/local/bin/powerset.sh
 install -m 0755 ./programs/zsh-histclean/histclean /usr/local/bin/histclean
