@@ -10,7 +10,7 @@ bindkey -e
 zstyle :compinstall filename "/home/$USER/.zshrc"
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME"/zcompdump
-PS1='%F{cyan}%n%f@%F{cyan}%m:%f%1~%f%F{cyan}|%#%f '
+PS1='%F{yellow}%?%F{cyan}|%n%f@%F{cyan}%m:%f%1~%f%F{cyan}|%#%f '
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^[[H' beginning-of-line
