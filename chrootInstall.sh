@@ -192,6 +192,7 @@ else
 fi
 echo -e ""$username"        soft    memlock        64\n"$username"        hard    memlock        2097152\n"$username"        hard    nofile        524288\n# End of file" > /etc/security/limits.conf  # increase memlock and add support for esync
 echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/90-override.conf  # increase max virtual memory maps (helps with some Wine games)
+echo 'ntsync' > /etc/modules-load.d/ntsync.conf
 pacman -S fastfetch htop neovim --needed --noconfirm
 mkdir -p /etc/xdg/nvim/colors
 install -m 0644 ./config-files/sysinit.vim /etc/xdg/nvim/sysinit.vim
