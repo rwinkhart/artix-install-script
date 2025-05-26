@@ -10,11 +10,13 @@ set number
 " enable basic spellchecking
 set spell
 
-" set keybinds (home/end)
+" set keybinds (home/end, delete w/o copy)
 noremap <C-a> <Home>
 imap <C-a> <Home>
 noremap <C-e> <End>
 imap <C-e> <End>
+nnoremap x "_x
+nnoremap <delete> "_x
 
 " expand all tabs and indents to 4 spaces
 set tabstop=4
