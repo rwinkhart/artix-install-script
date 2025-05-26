@@ -19,8 +19,21 @@ export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+
+# GO SETTINGS
 export GOPATH="$XDG_DATA_HOME"/go
+export CGO_ENABLED=1
+export GOFLAGS="-trimpath -ldflags='-s -w' -buildvcs=false"
+#export GOAMD64=v3
+
+# PROTON SETTINGS
+export PROTON_USE_NTSYNC=1
+export PROTON_ENABLE_WAYLAND=1
+#export DXIL_SPIRV_CONFIG=wmma_fp8_hack
+#export FSR4_UPGRADE=1
 
 # MISC SETTINGS
 export EDITOR=nvim
 export BUILDDIR=/tmp/makepkg
+
+[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && exec dbus-run-session startplasma-wayland
