@@ -23,7 +23,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 # GO SETTINGS
 export GOPATH="$XDG_DATA_HOME"/go
 export CGO_ENABLED=1
-export GOFLAGS="-trimpath -ldflags='-s -w' -buildvcs=false"
+export GOFLAGS='-trimpath "-ldflags=-s -w" -buildvcs=false'
 #export GOAMD64=v3
 
 # PROTON SETTINGS
